@@ -2,5 +2,9 @@ package hello
 
 class HelloController {
 
-    def index() {}
+    def helloService
+
+    def index() {
+        helloService.methodInvoke()
+    }
 }
