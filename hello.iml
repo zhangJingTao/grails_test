@@ -39,6 +39,7 @@
       <sourceFolder url="file://$MODULE_DIR$/grails-app/taglib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/controllers" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/grails-app/domain" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/grails-app/jobs" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target/classes" />
       <excludeFolder url="file://$MODULE_DIR$/target/test-classes" />
     </content>
@@ -50,6 +51,7 @@
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.quartz-scheduler/quartz/jars/quartz-2.2.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -59,6 +61,7 @@
     <orderEntry type="library" name="redis.clients:jedis:1.4.0" level="project" />
     <orderEntry type="module" module-name="hello-grailsPlugins" />
     <orderEntry type="library" name="fastjson-1.1.15" level="project" />
+    <orderEntry type="library" name="grails-2.2" level="application" />
+    <orderEntry type="library" name="grails-2.2.3" level="application" />
   </component>
 </module>
-

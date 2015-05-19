@@ -83,3 +83,4 @@ $RECYCLE.BIN/
 .idea
 *.properties
 *.properties
+*.iml
