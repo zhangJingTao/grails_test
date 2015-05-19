@@ -81,3 +81,4 @@ $RECYCLE.BIN/
 .idea/compiler.xml
 #IDEA setting
 .idea
+*.properties
