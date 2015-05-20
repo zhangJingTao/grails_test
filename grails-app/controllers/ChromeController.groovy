@@ -14,14 +14,18 @@ class ChromeController {
      */
     def saveData = {
         def token = params.token
+        def ip = request.getHeader("X-Real-IP").toString()
+        if (!ip){
+            ip = request.getRemoteAddr()
+        }
         if (token && token != 'null') {
             ChromeUser user = ChromeUser.findByUserToken(token)
             if (user) {
-                ChromeUserVisit userVisit = new ChromeUserVisit(user: user, dateCreted: new Date(), url: params.url, title: params.title, ip: request.getRemoteAddr(), userAgent: request.getHeader("User-Agent"))
+                ChromeUserVisit userVisit = new ChromeUserVisit(user: user, dateCreted: new Date(), url: params.url, title: params.title, ip: ip, userAgent: request.getHeader("User-Agent"))
                 userVisit.save(flush: true)
             }
         } else {
-            ChromeUserVisit userVisit = new ChromeUserVisit(dateCreted: new Date(), url: params.url, title: params.title, ip: request.getRemoteAddr(), userAgent: request.getHeader("User-Agent"))
+            ChromeUserVisit userVisit = new ChromeUserVisit(dateCreted: new Date(), url: params.url, title: params.title, ip: ip, userAgent: request.getHeader("User-Agent"))
             userVisit.save(flush: true)
         }
         render "{success:1}"
