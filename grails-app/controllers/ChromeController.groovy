@@ -5,7 +5,9 @@ import com.alibaba.fastjson.JSONObject
  */
 class ChromeController {
 
-    def index() {}
+    def index() {
+        render (view: "index")
+    }
 
     static allowedMethods = [chromeReg: "GET", saveData: "POST"]
     /**

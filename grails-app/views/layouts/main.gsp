@@ -85,7 +85,10 @@
                     <a class="page-scroll" href="#about">About</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="#download">Download</a>
+                    <a class="page-scroll" href="#download">Source</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="#wn">What's New</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="#contact">Contact</a>
@@ -147,6 +150,26 @@
         </div>
     </div>
 </section>
+<!-- What's New -->
+<section id="wn" class="container content-section text-center">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2">
+            <h2>What's New...</h2>
+            <p><s></s></p>
+            <ul class="list-group" style="color: #000000">
+                <li class="list-group-item">
+                    <span class="badge">2015-05-19</span>
+                    全新的页面上线，<a href="#download">Rss订阅功能</a>,虽然没有什么卵用
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">2015-05-20</span>
+                    Chrome插件，匿名统计你的浏览器行为，<a href="/chrome/index">VisitCountPlugin</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
 
 <!-- Contact Section -->
 <section id="contact" class="container content-section text-center">
