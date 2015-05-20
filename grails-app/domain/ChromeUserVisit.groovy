@@ -4,7 +4,7 @@
 class ChromeUserVisit {
 
     static constraints = {
-
+        user(nullable: true)
     }
 
     ChromeUser user

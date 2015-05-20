@@ -24,14 +24,10 @@ grails.project.dependency.resolution = {
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
-
+        mavenRepo "http://192.168.1.15:8080/nexus/content/groups/public/"
         grailsPlugins()
         grailsHome()
         grailsCentral()
-        mavenRepo "http://repo.grails.org/grails/repo"
-        mavenLocal()
-        mavenCentral()
-
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
@@ -49,19 +45,9 @@ grails.project.dependency.resolution = {
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.8.3"
         runtime ":resources:1.2"
-
-        // Uncomment these (or add new ones) to enable additional resources capabilities
-        //runtime ":zipped-resources:1.0"
-        //runtime ":cached-resources:1.0"
-        //runtime ":yui-minify-resources:0.1.5"
-
         build ":tomcat:$grailsVersion"
-
         runtime ":database-migration:1.3.2"
-
         compile ':cache:1.0.1'
-        compile ':quartz-1.0.3-SNAPSHOT'
-//        compile ':quartz:1.0.2'
-//        compile ':database-migrati'
+//        compile ':quartz:1.0-RC1'
     }
 }
