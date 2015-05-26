@@ -1,7 +1,12 @@
 import com.alibaba.fastjson.JSONObject
+import grails.converters.JSON
+import groovy.sql.Sql
 
 class GitController {
     static allowedMethods = [pushEvent: "POST"]
+    def dataSource
+
+
     def index() {
         render (view: "test")
     }
@@ -29,7 +34,8 @@ class GitController {
                 commitUrl: commit.url,
                 commitAuthorName: commit.author.name,
                 commitAuthorEmail: commit.author.email,
-                commitMsg: commit.message)
+                commitMsg: commit.message,
+                dateCreated: new Date())
         if (gp.save(flush: true)){
             log.info "保存成功"
             render "success"
@@ -38,6 +44,26 @@ class GitController {
             render "save failure"
         }
     }
+    /**
+     * 提供json接口
+     */
+    def commitHistory = {
+        try {
+            def db = new Sql(dataSource)
+            def limit = params.limit? params.limit:10
+            def sql = "SELECT commit_msg,commit_url,commit_date,repository_name,repository_url from git_push order BY commit_date LIMIT :limit"
+            def list = db.rows(sql,['limit':limit])
+            render list as JSON
+        }catch (Exception e){
+            e.printStackTrace()
+        }
+        render ""
+    }
+
+    /**
+     * 获取request头的payload信息
+     * @return
+     */
     def getBody(){
         String body = "";
         StringBuilder stringBuilder = new StringBuilder();

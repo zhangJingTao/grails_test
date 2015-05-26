@@ -32,5 +32,6 @@ class GitPush {
     String commitUrl
     String commitAuthorName
     String commitAuthorEmail
-    String commitMsg;
+    String commitMsg
+    Date dateCreated
 }

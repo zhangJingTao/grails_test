@@ -56,6 +56,15 @@
             $._messengerDefaults = {
                 extraClasses: 'messenger-fixed messenger-theme-future messenger-on-top'
             }
+            //Git更新历史
+            var gitUrl = "/git/commitHistory?limit=4"
+            $.getJSON(gitUrl,function(data){
+                var htmlTemplate = '<div class="panel panel-danger"><div class="panel-footer">Panel footer</div><div class="panel-body">Panel content</div></div>'
+                $.each(data,function(ele,index){
+
+                })
+                $("#gitListGroup").innerHTML(html);
+            })
         })
     </script>
 </head>
@@ -139,14 +148,11 @@
             </div>
             </div>
             <br>
-                <div class="col-lg-6 col-lg-offset-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Input Your Email..." id="rssEmail">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" id="rssBtn" >RSS ME!</button>
-                        </span>
-                    </div>
+            <div class="col-lg-6 col-lg-offset-3">
+                <div class="list-group" id="git-list-group">
+
                 </div>
+            </div>
         </div>
     </div>
 </section>
@@ -159,11 +165,15 @@
             <ul class="list-group" style="color: #000000">
                 <li class="list-group-item">
                     <span class="badge">2015-05-19</span>
-                    全新的页面上线，<a href="#download">Rss订阅功能</a>,虽然没有什么卵用
+                    <b>全新的页面上线，<a href="#download">Rss订阅功能</a>,虽然没有什么卵用</b>
                 </li>
                 <li class="list-group-item">
                     <span class="badge">2015-05-20</span>
                     Chrome插件，匿名统计你的浏览器行为，<a href="/chrome/index">VisitCountPlugin</a>
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">2015-05-26</span>
+                    Git Webhooks服务，Git代码更新自动同步到本站！
                 </li>
             </ul>
         </div>
