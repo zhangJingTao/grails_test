@@ -76,7 +76,17 @@ log4j = {
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
-
+    appenders {
+        file name: 'grailsfile', file: '../../logs/grails.log'
+        file name: 'rootlog', file: '../../logs/root.log'
+        file name: 'devfile', file: '../../logs/development.log',
+                layout: pattern(conversionPattern: "[%d{HH:mm:ss:SSS}] %-5p %c{2}: %m%n")
+    }
+    root { warn 'stdout', 'rootlog' }
+    info additivity: true, grailsfile: 'org.codehaus.groovy.grails'
+    all additivity: true, devfile: [
+            'grails.app'
+    ]
     error 'org.codehaus.groovy.grails.web.servlet',        // controllers
             'org.codehaus.groovy.grails.web.pages',          // GSP
             'org.codehaus.groovy.grails.web.sitemesh',       // layouts

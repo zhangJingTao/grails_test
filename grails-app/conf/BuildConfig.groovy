@@ -17,7 +17,7 @@ grails.project.dependency.resolution = {
         // specify dependency exclusions here; for example, uncomment this to disable ehcache:
         // excludes 'ehcache'
     }
-    log "info" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
     legacyResolve false
     // whether to do a secondary resolve on plugin installation, not advised and here for backwards compatibility
@@ -40,6 +40,7 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
         compile 'org.apache.httpcomponents:httpclient:4.4'
+        compile 'org.jsoup:jsoup:1.8.2'
     }
 
     plugins {
@@ -49,6 +50,6 @@ grails.project.dependency.resolution = {
         build ":tomcat:$grailsVersion"
         runtime ":database-migration:1.3.2"
         compile ':cache:1.0.1'
-//        compile ':quartz:1.0-RC1'
+        compile ':quartz2:2.1.6.2'
     }
 }

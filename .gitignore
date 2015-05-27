@@ -85,3 +85,4 @@ $RECYCLE.BIN/
 *.properties
 *.iml
 grails-app/views/weibo/test.gsp
+*.class
