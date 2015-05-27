@@ -59,13 +59,40 @@
             //Git更新历史
             var gitUrl = "/git/commitHistory?limit=4"
             $.getJSON(gitUrl,function(data){
-                var htmlTemplate = '<div class="panel panel-danger"><div class="panel-footer">Panel footer</div><div class="panel-body">Panel content</div></div>'
-                $.each(data,function(ele,index){
-
+                var htmlTemplate = '<div class="panel panel-danger"><div class="panel-footer" onclick="window.open(\'{respUrl}\')">{resp}</div><div class="panel-body" onclick="window.open(\'{commitUrl}\')">{commit}</div></div>'
+                var html = '';
+               //<span class="badge"></span>
+                $.each(data,function(index,ele){
+                    var badge = '<span class="badge">'+new Date(ele.commit_date).format("yyyy/MM/dd hh:mm:ss")+'</span>'
+                    html += htmlTemplate.replace("{respUrl}",ele.repository_url).replace("{resp}",ele.repository_name+"@"+badge).replace("{commitUrl}",ele.commit_url).replace("{commit}",ele.commit_msg)
                 })
-                $("#gitListGroup").innerHTML(html);
+                $("#git-list-group").html(html);
             })
         })
+
+
+        Date.prototype.format = function(format){
+            var o = {
+                "M+" : this.getMonth()+1, //month
+                "d+" : this.getDate(), //day
+                "h+" : this.getHours(), //hour
+                "m+" : this.getMinutes(), //minute
+                "s+" : this.getSeconds(), //second
+                "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+                "S" : this.getMilliseconds() //millisecond
+            }
+
+            if(/(y+)/.test(format)) {
+                format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+            }
+
+            for(var k in o) {
+                if(new RegExp("("+ k +")").test(format)) {
+                    format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+                }
+            }
+            return format;
+        }
     </script>
 </head>
 
@@ -148,8 +175,8 @@
             </div>
             </div>
             <br>
-            <div class="col-lg-6 col-lg-offset-3">
-                <div class="list-group" id="git-list-group">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="list-group" id="git-list-group" style="color: black;text-align: left">
 
                 </div>
             </div>
@@ -165,7 +192,7 @@
             <ul class="list-group" style="color: #000000">
                 <li class="list-group-item">
                     <span class="badge">2015-05-19</span>
-                    <b>全新的页面上线，<a href="#download">Rss订阅功能</a>,虽然没有什么卵用</b>
+                    <s>全新的页面上线，<a href="#download">Rss订阅功能</a>,虽然没有什么卵用</s>
                 </li>
                 <li class="list-group-item">
                     <span class="badge">2015-05-20</span>

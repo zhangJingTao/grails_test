@@ -50,7 +50,7 @@ class GitController {
     def commitHistory = {
         try {
             def db = new Sql(dataSource)
-            def limit = params.limit? params.limit:10
+            def limit = params.limit? Integer.valueOf(params.limit):10
             def sql = "SELECT commit_msg,commit_url,commit_date,repository_name,repository_url from git_push order BY commit_date LIMIT :limit"
             def list = db.rows(sql,['limit':limit])
             render list as JSON
