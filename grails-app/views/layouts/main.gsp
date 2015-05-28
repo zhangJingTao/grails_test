@@ -239,6 +239,7 @@
     <div class="container text-center">
         <p>Copyright &copy; OnlySleep.net 2015 京ICP备15022349号</p>
     </div>
+	<div align="center"><a href="http://www.amazingcounters.com"><img border="0" src="http://cc.amazingcounters.com/counter.php?i=3189687&c=9569374" alt="AmazingCounters.com"></a></div>
 </footer>
 
 <!-- Bootstrap Core JavaScript -->
