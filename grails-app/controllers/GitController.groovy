@@ -51,7 +51,7 @@ class GitController {
         try {
             def db = new Sql(dataSource)
             def limit = params.limit? Integer.valueOf(params.limit):10
-            def sql = "SELECT commit_msg,commit_url,commit_date,repository_name,repository_url from git_push order BY commit_date LIMIT :limit"
+            def sql = "SELECT commit_msg,commit_url,commit_date,repository_name,repository_url from git_push order BY commit_date DESC LIMIT :limit"
             def list = db.rows(sql,['limit':limit])
             render list as JSON
         }catch (Exception e){
