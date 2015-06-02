@@ -9,5 +9,6 @@ class UrlMappings {
 
         "/"(view: "/layouts/main")
         "500"(view: '/error')
+        "404"(view: '/error')
     }
 }

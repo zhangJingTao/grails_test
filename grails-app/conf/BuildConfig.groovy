@@ -26,12 +26,14 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 //        mavenRepo "http://192.168.1.15:8080/nexus/content/groups/public/"
+        mavenLocal()
+        mavenCentral()
         grailsPlugins()
         grailsHome()
         grailsCentral()
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-        mavenRepo "http://snapshots.repository.codehaus.org"
-        mavenRepo "http://repository.codehaus.org"
+//        mavenRepo "http://snapshots.repository.codehaus.org"
+//        mavenRepo "http://repository.codehaus.org"
 //        mavenRepo "http://download.java.net/maven/2/"
 //        mavenRepo "http://repository.jboss.com/maven2/"
     }
@@ -43,6 +45,7 @@ grails.project.dependency.resolution = {
         compile 'org.apache.httpcomponents:httpclient:4.4'
         compile 'org.jsoup:jsoup:1.8.2'
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
+        compile 'net.sf.ezmorph:ezmorph:1.0.6'
 //        compile 'net.sf.json-lib:json-lib:2.4'
 //        compile 'xml-resolver:xml-resolver:1.2'
     }

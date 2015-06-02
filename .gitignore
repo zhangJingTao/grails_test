@@ -88,3 +88,4 @@ grails-app/views/weibo/test.gsp
 *.class
 *.jar
 grails-app/conf/datasource.properties
+*.properties
