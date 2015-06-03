@@ -2,7 +2,6 @@ import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import grails.converters.JSON
 import groovy.time.TimeCategory
-import groovyx.net.http.ContentType
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.support.PropertiesLoaderUtils
 
@@ -22,11 +21,13 @@ class WeiboController {
     def index() {
         if (!params.passed) {
             redirect(action: "oauth")
+        }else {
+            redirect(action: "home")
         }
     }
 
     def home = {
-        render(view: 'index')
+
     }
 
     /**
@@ -134,15 +135,13 @@ class WeiboController {
                 }
                 json.put("status",1)
                 json.put("weibos",array)
-                render json
             }else {
                 json.put("status",-1)
-                render json
             }
         }else {
             json.put("status",0)
-            render json
         }
+        render json as JSON
     }
 
     /**
