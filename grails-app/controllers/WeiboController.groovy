@@ -104,8 +104,8 @@ class WeiboController {
         def host = "https://api.weibo.com"
         def uri = "/2/statuses/home_timeline.json"
         def page = params.page? params.page:1
-        def count = params.count? params.count:20
-        def feature = params.feature? params.feature:1
+        def count = params.count? params.count:100
+        def feature = params.feature? params.feature:0
         def passed = false
         //判断是否有cookie存在，并且cookie合法
         def uid = cookieService.getCookie("sleep_weibo_uid", request)
