@@ -106,7 +106,7 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="navbar-brand page-scroll" href="#page-top">
-                <i class="fa fa-play-circle"></i>  <span class="light">Start</span> Toy
+                <i class="fa fa-play-circle"></i>  <span class="light">Start</span>
             </a>
         </div>
 
@@ -201,6 +201,10 @@
                 <li class="list-group-item">
                     <span class="badge">2015-05-26</span>
                     Git Webhooks服务，Git代码更新自动同步到本站！
+                </li>
+                <li class="list-group-item">
+                    <span class="badge">2015-05-20</span>
+                    <a href="/weibo">Sleep微博服务</a>，不断完善中。
                 </li>
             </ul>
         </div>

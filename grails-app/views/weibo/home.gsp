@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SleepWeibo:Burn After Reading</title>
+    <title>SleepWeibo 0.1</title>
     <!-- jQuery -->
     <script src="/main/js/jquery.js"></script>
     <script src="/js/masonry.pkgd.min.js"></script>
@@ -23,29 +23,33 @@
     <script src="/js/responsive/responsive-nav.min.js"></script>
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
     <link href="/css/doc.min.css" rel="stylesheet">
+    <script src="/js/jquery.slides.js"></script>
+
     <script src="/js/weibo.js"></script>
     <link href="/css/weibo.css" rel="stylesheet">
 </head>
 
 <body>
 <div class="border" id="home"></div>
-
-<div class="wrapper">
-    <div id="nav">
-        <ul>
-            <li class="active"><a href="home">首页</a></li>
-            <li><a href="#features">收藏</a></li>
-            <li><a href="#">关于</a></li>
-        </ul>
-    </div>
-    <a href="#nav-toggle" id="nav-toggle" aria-hidden="false">Menu</a>
-</div>
-
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-12" style="z-index: 99999">
+            <div class="wrapper">
+                <div id="nav">
+                    <ul>
+                        <li class="active"><a href="home">首页</a></li>
+                        <li><a href="#features">收藏</a></li>
+                        <li><a href="#">关于</a></li>
+                    </ul>
+                </div>
+                <br>
+                <a href="#nav-toggle" id="nav-toggle" aria-hidden="false">Menu</a>
+            </div>
+        </div>
+        <br>
+        <div class="col-md-8 col-md-offset-2" style="z-index: 100">
             <input type="hidden" id="scope" value="0">
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" style="z-index: 100">
                 <li role="presentation" class="active" id="nav0"><a href="#">全部</a></li>
                 <li role="presentation" id="nav1"><a href="#">原创</a></li>
             </ul>

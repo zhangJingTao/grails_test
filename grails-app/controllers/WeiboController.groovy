@@ -119,7 +119,7 @@ class WeiboController {
         }
         if (passed){
             def access_token = wu.accessToken
-            def map = [access_token:access_token,feature:feature]
+            def map = [access_token:access_token,feature:feature,count:count,page:page]
             def result = ""
             try {
                 result = weiboHttpsService.get(host,uri,map)
