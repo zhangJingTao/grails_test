@@ -2,7 +2,6 @@ import com.alibaba.fastjson.JSONArray
 import com.alibaba.fastjson.JSONObject
 import grails.converters.JSON
 import groovy.time.TimeCategory
-import groovyx.net.http.ContentType
 import org.springframework.core.io.ClassPathResource
 import org.springframework.core.io.support.PropertiesLoaderUtils
 
@@ -22,11 +21,13 @@ class WeiboController {
     def index() {
         if (!params.passed) {
             redirect(action: "oauth")
+        }else {
+            redirect(action: "home")
         }
     }
 
     def home = {
-        render(view: 'index')
+
     }
 
     /**
@@ -103,8 +104,8 @@ class WeiboController {
         def host = "https://api.weibo.com"
         def uri = "/2/statuses/home_timeline.json"
         def page = params.page? params.page:1
-        def count = params.count? params.count:20
-        def feature = params.feature? params.feature:1
+        def count = params.count? params.count:100
+        def feature = params.feature? params.feature:0
         def passed = false
         //判断是否有cookie存在，并且cookie合法
         def uid = cookieService.getCookie("sleep_weibo_uid", request)
@@ -118,7 +119,7 @@ class WeiboController {
         }
         if (passed){
             def access_token = wu.accessToken
-            def map = [access_token:access_token,feature:feature]
+            def map = [access_token:access_token,feature:feature,count:count,page:page]
             def result = ""
             try {
                 result = weiboHttpsService.get(host,uri,map)
@@ -134,15 +135,13 @@ class WeiboController {
                 }
                 json.put("status",1)
                 json.put("weibos",array)
-                render json
             }else {
                 json.put("status",-1)
-                render json
             }
         }else {
             json.put("status",0)
-            render json
         }
+        render json as JSON
     }
 
     /**

@@ -1,0 +1,25 @@
+container-fluid {
+    padding: 20px;
+}
+
+.box img {
+    max-width: 100%
+}
+
+.badge-success {
+    background-color: orange;
+}
+
+.badge-warning {
+    background-color: #cecdcb;
+}
+
+.badge-inverse {
+    background-color: red;
+}
+
+.postTime {
+    color: gray;
+    font-size: 10px;
+    font-style: italic;
+}

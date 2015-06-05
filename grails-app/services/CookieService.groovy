@@ -24,6 +24,7 @@ class CookieService {
 
     def setCookie(String name,String value,HttpServletResponse response){
         Cookie cookie = new Cookie(name,value);
+        cookie.setMaxAge(86400)
         response.addCookie(cookie);
     }
 }
