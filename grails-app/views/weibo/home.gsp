@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:wb="http://open.weibo.com/wb">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,12 +23,15 @@
     <script src="/js/responsive/responsive-nav.min.js"></script>
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
     <link href="/css/doc.min.css" rel="stylesheet">
-    <script src="/js/jquery.slides.js"></script>
-
     <script src="/js/weibo.js"></script>
+    <script src="/js/unslider.js"></script>
     <link href="/css/weibo.css" rel="stylesheet">
+<style type="text/css">
+.banner { position: relative; overflow: auto; }
+.banner li { list-style: none; }
+.banner ul li { float: left; }
+</style>
 </head>
-
 <body>
 <div class="border" id="home"></div>
 <div class="container">
@@ -62,7 +65,6 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-8 col-md-offset-2">
             <div id="list" class="container-fluid" style="display: none">
             </div>
