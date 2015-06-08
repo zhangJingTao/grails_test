@@ -43,7 +43,7 @@ function getWeibo() {
     var cssArray = ['danger', 'info', 'warning']
     var contentTemplate = ' <div class="bs-callout bs-callout-{css}" id="callout-buttons-state-names"><h4>{author}:<a class="anchorjs-link" href="#" title="{title}"><span class="anchorjs-icon"></span></a></h4><p>{content}</p>'
     /*图片轮播*/
-    contentTemplate += '<div id="slides{weiboId}">{imgs}</div>'
+    contentTemplate += '<div id="weiboId{weiboId}" class="banner">{imgs}</div>'
     /*原微博*/
     contentTemplate += '{retweeted_status}'
     /*发布时间行*/
@@ -52,7 +52,7 @@ function getWeibo() {
     contentTemplate += '<p><a href="#" title="转发数"> <span class="badge badge-success">{reposts_count}</span></a>&nbsp<a href="#" title="评论数"><span class="badge badge-warning">{comments_count}</span></a><a href="#" title="点赞数">&nbsp<span class="badge badge-inverse">{attitudes_count}</span></a></p>'
     /*结尾*/
     contentTemplate += '</div>'
-    var url = "/weibo/getWeiboLine?feature=" + $("#scope").val();
+    var url = "/weibo/getWeiboLine?feature=" + $("#scope").val()+"&count=100";
     $.getJSON(url, function (data) {
         if (data.status == -1) {
             $.globalMessenger().post({
@@ -80,12 +80,20 @@ function getWeibo() {
                     .replace("{attitudes_count}", ele.attitudes_count + "")
                     .replace("{sendTime}", new Date(ele.created_at).format("yyyy/MM/dd hh:mm:ss"))
                     .replace("{channel}", ele.source + "");
-                if(ele.original_pic){//有大图
+                if(ele.pic_urls&&ele.pic_urls.length>0){//有图
+                    var pics = ele.pic_urls
+                    var picHtml = '<ul class="items">';
+                    for(var p = 0;p<pics.length;p++){
+                        var smallPic = pics[p].thumbnail_pic
+                        var picUrl = smallPic.replace("thumbnail","large")
+                        picHtml += '<li><a href="'+picUrl+'" target="_blank"><img src="'+picUrl+'"/></a></li>'
+                    }
+                    picHtml += '</ul>'
                     h = h.replace("{weiboId}",ele.id)
-                        .replace("{imgs}",'<img src="'+ele.original_pic+'">');
+                        .replace("{imgs}",picHtml);
                     unInitSlide.push("weiboId"+ele.id)
                 }else{
-                    h = h.replace('<div id="slides{weiboId}">{imgs}</div>','')
+                    h = h.replace('<div id="weiboId{weiboId}" class="banner">{imgs}</div>','')
                 }
                 if(ele.retweeted_status){//有原微博
                     var retweeted = ele.retweeted_status
@@ -98,10 +106,24 @@ function getWeibo() {
                         .replace("{attitudes_count}", retweeted.attitudes_count + "")
                         .replace("{sendTime}", new Date(retweeted.created_at).format("yyyy/MM/dd hh:mm:ss"))
                         .replace("{channel}", retweeted.source + "")
-                        .replace('<div id="slides{weiboId}">{imgs}</div>','')
                         .replace('{retweeted_status}','')
                         .replace('<h4>','<h5>')
                         .replace('</h4>','</h5>');
+                    if(retweeted.pic_urls&&retweeted.pic_urls.length>0){//有大图
+                        var pics = retweeted.pic_urls
+                        var picHtml = '<ul class="items">';
+                        for(var p = 0;p<pics.length;p++){
+                            var smallPic = pics[p].thumbnail_pic
+                            var picUrl = smallPic.replace("thumbnail","large")
+                            picHtml += '<li><a href="'+picUrl+'" target="_blank"><img src="'+picUrl+'"/></a></li>'
+                        }
+                        picHtml += '</ul>'
+                        retweetedContent = retweetedContent.replace("{weiboId}",retweeted.id)
+                            .replace("{imgs}",picHtml);
+                        unInitSlide.push("weiboId"+retweeted.id)
+                    }else{
+                        retweetedContent = retweetedContent.replace('<div id="weiboId{weiboId}" class="slideBox">{imgs}</div>','')
+                    }
                     h = h.replace('{retweeted_status}',retweetedContent)
                 }else{
                     h = h.replace('{retweeted_status}','')
@@ -113,10 +135,7 @@ function getWeibo() {
             /*init slide*/
             if(unInitSlide){
                 for(var i=0;i<unInitSlide.length;i++){
-                    $(unInitSlide[i]).slidesjs({
-                        width: 700,
-                        height: 528
-                    });
+
                 }
             }
         }
