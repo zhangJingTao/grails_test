@@ -50,11 +50,10 @@ class SpiderJob {
                     for (SpiderSiteSelectorConfig config:configs){
                         eles = eles.select(config.selector)
                     }
-                    def domain = document.baseUri()
                     eles.each {
                         ele ->
                             SpiderNews sn = new SpiderNews(
-                                    url: domain + ele.attr("href"),
+                                    url: ele.attr("href"),
                                     title: ele.text(),
                                     site:  site,
                                     createDate: new Date()
