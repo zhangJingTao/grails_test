@@ -100,9 +100,9 @@ function getFeatures(page) {
                             picHtml += '<li><a href="'+picUrl+'" target="_blank"><img src="'+picUrl+'"/></a></li>'
                         }
                         picHtml += '</ul>'
-                        retweetedContent = retweetedContent.replace("{weiboId}",retweeted.id)
+                        retweetedContent = retweetedContent.replace("{weiboId}",ele.id)
                             .replace("{imgs}",picHtml);
-                        unInitSlide.push("weiboId"+retweeted.id)
+                        unInitSlide.push("weiboId"+ele.id)
                     }else{
                         retweetedContent = retweetedContent.replace('<div id="weiboId{weiboId}" class="banner">{imgs}</div>','')
                     }
