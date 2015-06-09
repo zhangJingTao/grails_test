@@ -23,7 +23,7 @@ class WeiboController {
         if (!params.passed) {
             redirect(action: "oauth")
         }else {
-            redirect(action: "home")
+            redirect(action: "features")
         }
     }
 
@@ -42,7 +42,7 @@ class WeiboController {
         if (uid&&token) {//判断用户是否存在
             WeiboUser wu = WeiboUser.findByUid(String.valueOf(uid))
             if (wu && token.equals(encodeSleepToken(wu.uid, wu.accessToken))) {
-                redirect(action: "home")
+                redirect(action: "features")
                 return
             }
         }
@@ -84,7 +84,7 @@ class WeiboController {
                 }
                 cookieService.setCookie("sleep_weibo_uid", tokenJson.getString("uid"),response)
                 cookieService.setCookie("sleep_weibo_token", encodeSleepToken(tokenJson.getString("uid"), tokenJson.getString("access_token")),response)
-                redirect(action: "home")
+                redirect(action: "features")
             } else {
                 render result
             }
@@ -120,7 +120,7 @@ class WeiboController {
         }
         if (passed){
             def access_token = wu.accessToken
-            def map = [access_token:access_token,feature:feature,count:count,page:page,since_id:'3851391011484404']
+            def map = [access_token:access_token,feature:feature,count:count,page:page]
             def result = ""
             try {
                 result = weiboHttpsService.get(host,uri,map)
@@ -181,7 +181,8 @@ class WeiboController {
                 json.put("count",count)
                 json.put("page",params.page)
                 json.put("list",list)
-                render json as JSON
+                def result = json as JSON
+                render result
                 return
             }
         }

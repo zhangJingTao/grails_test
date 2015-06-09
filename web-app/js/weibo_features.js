@@ -93,7 +93,7 @@ function getFeatures(page) {
                         .replace('</h4>','</h5>')
                         .replace('<p class="comment" title="{comment}">收藏于{commentDate}</p>','');
                     if(ele.imgs.length>0){//有大图
-                        var pics = retweeted.imgs
+                        var pics = ele.imgs
                         var picHtml = '<ul class="items">';
                         for(var p = 0;p<pics.length;p++){
                             var picUrl = pics[p].imgUrl

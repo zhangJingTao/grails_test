@@ -13,4 +13,10 @@ class WeiboCollectImg {
     Boolean downloaded
     Boolean needDownload
     Date downloadDate
+
+
+    @Override
+    public String toString() {
+         return imgUrl
+    }
 }

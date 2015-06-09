@@ -45,7 +45,7 @@
         <br>
         <div class="col-md-8 col-md-offset-2">
             <div class="well">
-                <p><a href="http://weibo.com/610039879">@睡觉乄Crystal</a>自动分类收藏于<a href="feature">这里</a></p>
+                <p><a href="http://weibo.com/610039879">@睡觉乄Crystal</a>自动分类收藏于<a href="features">这里</a></p>
                 <p>Open Source Project</p>
             </div>
         </div>

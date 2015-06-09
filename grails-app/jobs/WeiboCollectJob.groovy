@@ -21,7 +21,7 @@ class WeiboCollectJob {
 
     def execute(){
         def runSuccess = false
-        def user = WeiboUser.findByUid("2287744875")
+        def user = WeiboUser.findByUid("5625623786")
         if (user){
             if (!lastWeiboId){
                 def db = new Sql(dataSource)
