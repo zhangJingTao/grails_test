@@ -7,6 +7,8 @@ import org.springframework.core.io.support.PropertiesLoaderUtils
 class WeiboCollectJob {
     static  triggers = {
         cron(name: 'weiboCollect',cronExpression: '0 0/10 * * * ?')
+//        cron(name: 'weiboCollect',cronExpression: '0 0 0 1 * ?')
+//        cron(name: 'weiboCollect',cronExpression: '0 0/1 * * * ?')
     }
     def dataSource
     def weiboHttpsService
@@ -73,6 +75,28 @@ class WeiboCollectJob {
                         }
                         try{
                             wc.save(flush: true)
+                            def imgsWeibo = null
+                            if (!wb.retweeted_status&&wb.original_pic){//不是转发微博,并且有大图
+                                imgsWeibo = wb
+                            }
+                            if (wb.retweeted_status&&wb.retweeted_status.original_pic){//是转发微博 并且有图
+                                imgsWeibo = wb.retweeted_status
+                            }
+                            def count = 1
+                            imgsWeibo.pic_urls.each{
+                                pic ->
+                                    def thumbPic = pic.thumbnail_pic
+                                    def largePic = thumbPic.replace("thumbnail","large")
+                                    WeiboCollectImg img = new WeiboCollectImg(
+                                        sort: count,
+                                        imgUrl:largePic,
+                                        collect:wc,
+                                        downloaded: false,
+                                        needDownload:true
+                                    )
+                                    img.save(flush: true)
+                                    count++
+                            }
                         }catch (Exception e){
                             log.info "emoji:"+wc.comments
                         }

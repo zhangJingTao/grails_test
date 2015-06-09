@@ -17,6 +17,7 @@ class WeiboController {
     def appSecret = properties.getProperty("appSecret")
     def weiboHttpsService
     def cookieService
+    def dataSource
 
     def index() {
         if (!params.passed) {
@@ -152,5 +153,43 @@ class WeiboController {
      */
     def encodeSleepToken(String uid, String token) {
         return ("{" + uid + "}" + token).encodeAsMD5()
+    }
+
+    def features = {
+
+    }
+    /**
+     * 获取用户收藏
+     */
+    def getFeatures = {
+        JSONObject json = new JSONObject()
+        def uid = cookieService.getCookie("sleep_weibo_uid", request)
+        def token = cookieService.getCookie("sleep_weibo_token", request)
+        if (uid&&token) {//判断用户是否存在
+            WeiboUser wu = WeiboUser.findByUid(String.valueOf(uid))
+            //授权通过，使用uid查询
+            if (wu && token.equals(encodeSleepToken(wu.uid, wu.accessToken))) {
+                params.max = Math.min(params.max ? params.int('max') : 10, 100)
+                params.offset = params.offset ? params.int('offset') : 0
+                params.page = params.page ? params.int('page'):1
+                def query = {
+                        eq("commentUserId",uid)
+                }
+                def count = WeiboCollect.createCriteria().count(query)
+                def list = WeiboCollect.createCriteria().list(params,query)
+                json.put("status",1)
+                json.put("count",count)
+                json.put("page",params.page)
+                json.put("list",list)
+                render json as JSON
+                return
+            }
+        }
+        json.put("status","-1")
+        json.put("msg","获取失败，请<a href='/weibo/oauth'>重新授权</a>")
+        render json as JSON
+    }
+    def about = {
+
     }
 }

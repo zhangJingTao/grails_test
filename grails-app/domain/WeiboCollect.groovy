@@ -12,6 +12,10 @@ class WeiboCollect {
         comments(nullable: true)
         commentId(nullable: true)
     }
+    static mapping = {
+    }
+
+    static hasMany = [imgs:WeiboCollectImg]
 
     /**
      * @的微博
@@ -39,7 +43,4 @@ class WeiboCollect {
 
     Date createdDate
     String commentId
-
-
-
 }

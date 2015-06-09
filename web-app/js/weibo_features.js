@@ -1,3 +1,4 @@
+var max = 10//分页大小
 $(document).ready(function () {
     var intervalId = window.setInterval(function () {
         var width = parseInt(100 * parseInt($(".progress-bar-warning").css("width")) / parseInt($("#loadingProgress").css("width"))) + 100
@@ -15,7 +16,7 @@ $(document).ready(function () {
         extraClasses: 'messenger-fixed messenger-theme-future messenger-on-bottom'
     }
 
-    getWeibo()
+    getFeatures(1)
     var speed = 1000;
     $('#list').masonry({
         itemSelector: '.content',
@@ -26,66 +27,53 @@ $(document).ready(function () {
             queue: false
         }
     })
-    /*bind onclick*/
-    $(".nav>li").bind("click", function () {
-        $($(this).parent("ul")).find("li").removeClass("active");
-        $(this).addClass("active");
-        $("#scope").val(this.id.replace("nav", ""))
-        getWeibo();
-    })
 })
 
 /*
 * required:http://slidesjs.com/
 */
-function getWeibo() {
+function getFeatures(page) {
     var unInitSlide = []
     var cssArray = ['danger', 'info', 'warning']
-    var contentTemplate = ' <div class="bs-callout bs-callout-{css}" id="callout-buttons-state-names"><h4>{author}:<a class="anchorjs-link" href="#" title="{title}"><span class="anchorjs-icon"></span></a></h4><p>{content}</p>'
+    var contentTemplate = ' <div class="bs-callout bs-callout-{css}" id="callout-buttons-state-names"><h4>{author}:<a class="anchorjs-link" href="#"><span class="anchorjs-icon"></span></a></h4><p>{content}</p>'
     /*图片轮播*/
     contentTemplate += '<div id="weiboId{weiboId}" class="banner">{imgs}</div>'
     /*原微博*/
     contentTemplate += '{retweeted_status}'
     /*发布时间行*/
-    contentTemplate += '<p class="postTime">@&nbsp{sendTime}&nbsp&nbspby&nbsp{channel}</p>'
-    /*点赞评论行*/
-    contentTemplate += '<p><a href="#" title="转发数"> <span class="badge badge-success">{reposts_count}</span></a>&nbsp<a href="#" title="评论数"><span class="badge badge-warning">{comments_count}</span></a><a href="#" title="点赞数">&nbsp<span class="badge badge-inverse">{attitudes_count}</span></a></p>'
+    contentTemplate += '<p class="postTime">@&nbsp{sendTime}</p>'
+    /*@内容*/
+    contentTemplate += '<p class="comment" title="{comment}">收藏于{commentDate}</p>'
     /*结尾*/
     contentTemplate += '</div>'
-    var url = "/weibo/getWeiboLine?feature=" + $("#scope").val()+"&count=100";
+    var offset = max*(page-1)
+    var url = "/weibo/getFeatures?offset="+offset+"&max="+max;
     $.getJSON(url, function (data) {
         if (data.status == -1) {
             $.globalMessenger().post({
-                message: '访问微博服务失败.',
+                message: data.msg,
                 showCloseButton: true,
                 id: "Only-one-message"
             });
-        } else if (data.status == 0) {
-            $.globalMessenger().post({
-                message: '授权不通过，请<a href="/weibo/oauth">重新授权</a>',
-                showCloseButton: true,
-                id: "Only-one-message"
-            });
-        } else {
+        }else {
+            initPage("page",data.count,page,max,"getFeatures")
+
+            $("#total").val(data.count)
             var html = ""
             /*随机起始位置*/
             var count = 0 + parseInt(Math.random()*10)
-            $.each(data.weibos, function (index, ele) {
+            $.each(data.list, function (index, ele) {
                 var h = contentTemplate.replace("{content}", ele.text)
                     .replace("{css}", cssArray[count % 3])
-                    .replace("{author}", ele.user.name)
-                    .replace("{title}", ele.user.verified_reason)
-                    .replace("{reposts_count}", ele.reposts_count + "")
-                    .replace("{comments_count}", ele.comments_count + "")
-                    .replace("{attitudes_count}", ele.attitudes_count + "")
-                    .replace("{sendTime}", new Date(ele.created_at).format("yyyy/MM/dd hh:mm:ss"))
-                    .replace("{channel}", ele.source + "");
-                if(ele.pic_urls&&ele.pic_urls.length>0){//有图
-                    var pics = ele.pic_urls
+                    .replace("{author}", ele.weiboUserName)
+                    .replace("{sendTime}", new Date(ele.weiboCreateDate).format("yyyy/MM/dd hh:mm:ss"))
+                    .replace("{commentDate}",new Date(ele.commentDate).format("yyyy/MM/dd hh:mm:ss"))
+                    .replace("{comment}",ele.comments);
+                if(!ele.reWeiboId&&ele.imgs.length>0){//有图
+                    var pics = ele.imgs
                     var picHtml = '<ul class="items">';
                     for(var p = 0;p<pics.length;p++){
-                        var smallPic = pics[p].thumbnail_pic
-                        var picUrl = smallPic.replace("thumbnail","large")
+                        var picUrl = pics[p].imgUrl
                         picHtml += '<li><a href="'+picUrl+'" target="_blank"><img src="'+picUrl+'"/></a></li>'
                     }
                     picHtml += '</ul>'
@@ -95,26 +83,20 @@ function getWeibo() {
                 }else{
                     h = h.replace('<div id="weiboId{weiboId}" class="banner">{imgs}</div>','')
                 }
-                if(ele.retweeted_status){//有原微博
-                    var retweeted = ele.retweeted_status
-                    var retweetedContent = contentTemplate.replace("{content}", retweeted.text)
+                if(ele.reWeiboId){//有原微博
+                   var retweetedContent = contentTemplate.replace("{content}", ele.reText)
                         .replace("{css}", '')
-                        .replace("{author}", retweeted.user.name)
-                        .replace("{title}", retweeted.user.verified_reason)
-                        .replace("{reposts_count}", retweeted.reposts_count + "")
-                        .replace("{comments_count}", retweeted.comments_count + "")
-                        .replace("{attitudes_count}", retweeted.attitudes_count + "")
-                        .replace("{sendTime}", new Date(retweeted.created_at).format("yyyy/MM/dd hh:mm:ss"))
-                        .replace("{channel}", retweeted.source + "")
+                        .replace("{author}", ele.reWeiboUserName)
+                        .replace("{sendTime}", new Date(ele.reWeiboCreateDate).format("yyyy/MM/dd hh:mm:ss"))
                         .replace('{retweeted_status}','')
                         .replace('<h4>','<h5>')
-                        .replace('</h4>','</h5>');
-                    if(retweeted.pic_urls&&retweeted.pic_urls.length>0){//有大图
-                        var pics = retweeted.pic_urls
+                        .replace('</h4>','</h5>')
+                        .replace('<p class="comment" title="{comment}">收藏于{commentDate}</p>','');
+                    if(ele.imgs.length>0){//有大图
+                        var pics = retweeted.imgs
                         var picHtml = '<ul class="items">';
                         for(var p = 0;p<pics.length;p++){
-                            var smallPic = pics[p].thumbnail_pic
-                            var picUrl = smallPic.replace("thumbnail","large")
+                            var picUrl = pics[p].imgUrl
                             picHtml += '<li><a href="'+picUrl+'" target="_blank"><img src="'+picUrl+'"/></a></li>'
                         }
                         picHtml += '</ul>'
@@ -132,6 +114,7 @@ function getWeibo() {
                 count++
             })
             $("#list").html(html)
+            $("#list").removeAttr("style")
             /*init slide*/
             if(unInitSlide){
                 for(var i=0;i<unInitSlide.length;i++){
@@ -165,4 +148,25 @@ Date.prototype.format = function (format) {
         }
     }
     return format;
+}
+/**
+ * 初始化页面翻页控件
+ * @param id
+ * @param total  总数
+ * @param page  当前第几页
+ * @param size  每页大小
+ */
+function initPage(id,total,page,size,method){
+    var template = '<nav><ul class="pager"><li class="previous {predis}" onclick="{preMethod}"><a href="#'+id+'"><span aria-hidden="true">&larr;</span> Older</a></li>'
+    template += '<li class="next {nextdis}" onclick="{nextMethod}"><a href="#'+id+'">Newer <span aria-hidden="true">&rarr;</span></a></li>'
+    template += '</ul></nav>'
+    var isFirst = page==1? true:false
+    var isLast = page*size>total? true:false
+    var preMethod = isFirst? "":method+"("+(page-1)+")"
+    var nextMethod = isLast? "":method+"("+(page+1)+")"
+    var html = template.replace("{preMethod}",preMethod)
+        .replace("{nextMethod}",nextMethod);
+    if(isFirst) html = html.replace("{predis}","disabled")
+    if(isLast) html = html.replace("{nextdis}","disabled")
+    $("#"+id).html(html);
 }

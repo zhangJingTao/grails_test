@@ -26,11 +26,11 @@ grails.project.dependency.resolution = {
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
 //        mavenRepo "http://192.168.1.15:8080/nexus/content/groups/public/"
-//        mavenRepo "http://repo.grails.org/grails/core"
-//        mavenRepo "http://repo.grails.org/grails/plugins"
+        mavenRepo "http://repo.grails.org/grails/core"
+        mavenRepo "http://repo.grails.org/grails/plugins"
         mavenLocal()
         mavenCentral()
-//        mavenRepo "http://maven.oschina.net/content/groups/public/"
+        mavenRepo "http://maven.oschina.net/content/groups/public/"
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
 //        mavenRepo "http://snapshots.repository.codehaus.org"
 //        mavenRepo "http://repository.codehaus.org"
@@ -42,7 +42,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
-//        compile 'org.apache.httpcomponents:httpclient:4.4'
+        compile 'org.apache.httpcomponents:httpclient:4.4'
         compile 'org.jsoup:jsoup:1.8.2'
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
         compile 'net.sf.ezmorph:ezmorph:1.0.6'

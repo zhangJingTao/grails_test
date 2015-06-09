@@ -23,9 +23,9 @@
     <script src="/js/responsive/responsive-nav.min.js"></script>
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
     <link href="/css/doc.min.css" rel="stylesheet">
-    <script src="/js/weibo.js"></script>
     <script src="/js/unslider.js"></script>
     <link href="/css/weibo.css" rel="stylesheet">
+    <script src="/js/weibo_features.js"></script>
 <style type="text/css">
 .banner { position: relative; overflow: auto; }
 .banner li { list-style: none; }
@@ -40,8 +40,8 @@
             <div class="wrapper">
                 <div id="nav">
                     <ul>
-                        <li class="active"><a href="home">首页</a></li>
-                        <li><a href="features">收藏</a></li>
+                        <li><a href="home">首页</a></li>
+                        <li class="active"><a href="features">收藏</a></li>
                         <li><a href="about">关于</a></li>
                     </ul>
                 </div>
@@ -50,13 +50,6 @@
             </div>
         </div>
         <br>
-        <div class="col-md-8 col-md-offset-2" style="z-index: 100">
-            <input type="hidden" id="scope" value="0">
-            <ul class="nav nav-tabs" style="z-index: 100">
-                <li role="presentation" class="active" id="nav0"><a href="#">全部</a></li>
-                <li role="presentation" id="nav1"><a href="#">原创</a></li>
-            </ul>
-        </div>
         <div class="col-md-8 col-md-offset-2">
             <div class="progress" id="loadingProgress" style="height: 5px">
                 <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0"
@@ -68,6 +61,14 @@
         <div class="col-md-8 col-md-offset-2">
             <div id="list" class="container-fluid" style="display: none">
             </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2 stickUp" id="page">
+            <nav>
+                <ul class="pager">
+                    <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+                    <li class="next disabled"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
