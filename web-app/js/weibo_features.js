@@ -161,7 +161,7 @@ function initPage(id,total,page,size,method){
     template += '<li class="next {nextdis}" onclick="{nextMethod}"><a href="#'+id+'">Newer <span aria-hidden="true">&rarr;</span></a></li>'
     template += '</ul></nav>'
     var isFirst = page==1? true:false
-    var isLast = page*size>total? true:false
+    var isLast = page*size>=total? true:false
     var preMethod = isFirst? "":method+"("+(page-1)+")"
     var nextMethod = isLast? "":method+"("+(page+1)+")"
     var html = template.replace("{preMethod}",preMethod)

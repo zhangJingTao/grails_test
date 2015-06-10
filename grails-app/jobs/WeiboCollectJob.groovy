@@ -7,8 +7,6 @@ import org.springframework.core.io.support.PropertiesLoaderUtils
 class WeiboCollectJob {
     static  triggers = {
         cron(name: 'weiboCollect',cronExpression: '0 0/10 * * * ?')
-//        cron(name: 'weiboCollect',cronExpression: '0 0 0 1 * ?')
-//        cron(name: 'weiboCollect',cronExpression: '0 0/1 * * * ?')
     }
     def dataSource
     def weiboHttpsService
@@ -25,7 +23,7 @@ class WeiboCollectJob {
         if (user){
             if (!lastWeiboId){
                 def db = new Sql(dataSource)
-                def sql = "SELECT last_weibo_id as id from weibo_job_history c where c.successed=1 order by c.run_date desc"
+                def sql = "SELECT last_weibo_id as id from weibo_job_history c where c.successed=1 and c.job_type=0 order by c.run_date desc"
                 def result = db.firstRow(sql)
                 if (result){
                     lastWeiboId = Long.valueOf(result.id)
@@ -115,7 +113,8 @@ class WeiboCollectJob {
         WeiboJobHistory wjh = new WeiboJobHistory(
                 lastWeiboId:lastWeiboId,
                 runDate:new Date(),
-                successed:runSuccess
+                successed:runSuccess,
+                jobType: 0
         )
         wjh.save(flush: true)
     }

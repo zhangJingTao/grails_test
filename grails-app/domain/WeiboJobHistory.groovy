@@ -9,4 +9,5 @@ class WeiboJobHistory {
     String lastWeiboId
     Date runDate
     Boolean successed
+    Integer jobType//0:@收藏 1：@微博
 }

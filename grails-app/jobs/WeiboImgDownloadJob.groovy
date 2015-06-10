@@ -23,14 +23,14 @@ class WeiboImgDownloadJob {
                 if (!new File(location).exists()){
                     new File(location).mkdirs()
                 }
-                def cmd = "wget -P "+location+" "+imgUrl
-                println cmd
-                cmd.execute().text
                 img.downloadDate = new Date()
                 img.downloaded = true
                 img.needDownload = false
                 img.diskPath = location + fileName
                 img.save(flush: true)
+                def cmd = "wget -P "+location+" "+imgUrl
+                println cmd
+                cmd.execute().text
         }
     }
 }
