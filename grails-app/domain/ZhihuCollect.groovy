@@ -4,6 +4,7 @@
 class ZhihuCollect {
 
     static constraints = {
+        collectId(unique: true)
     }
     String collectId
     Boolean enabled

@@ -6,7 +6,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils
 
 class WeiboCollectJob {
     static  triggers = {
-//        cron(name: 'weiboCollect',cronExpression: '0 0/10 * * * ?')
+        cron(name: 'weiboCollect',cronExpression: '0 0/10 * * * ?')
     }
     def dataSource
     def weiboHttpsService

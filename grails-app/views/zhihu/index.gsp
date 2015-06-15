@@ -18,7 +18,7 @@
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
     <script type="text/javascript">
         var pending = false
-        var baseId = 1
+        var baseId = 99999999999
         var classes = ['panel-primary','panel-success','panel-info','panel-warning','panel-danger']
         $(document).ready(function () {
             var navigation = responsiveNav("#nav", {customToggle: "#nav-toggle"});
@@ -71,7 +71,7 @@
 
     </div>
     <div class="col-md-2 col-md-offset-5">
-        <button type="button" class="btn btn-warning" onclick="getNext()">查看更多</button>
+        <button type="button" class="btn btn-warning" style="width: 100%" onclick="getNext()">查看更多</button>
     </div>
 </div>
 </body>

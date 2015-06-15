@@ -41,8 +41,8 @@ grails.project.dependency.resolution = {
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
 
-        // runtime 'mysql:mysql-connector-java:5.1.22'
-        compile 'org.apache.httpcomponents:httpclient:4.4'
+        runtime 'mysql:mysql-connector-java:5.1.22'
+        compile 'org.apache.httpcomponents:httpclient:4.0.3'
         compile 'org.jsoup:jsoup:1.8.2'
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
         compile 'net.sf.ezmorph:ezmorph:1.0.6'

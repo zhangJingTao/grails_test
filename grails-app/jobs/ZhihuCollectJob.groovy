@@ -8,7 +8,7 @@ import org.jsoup.select.Elements
 class ZhihuCollectJob {
     static triggers = {
         cron(name: 'zhihuCollect',cronExpression: '0 0 7/11 * * ?')
-//        cron(name: 'zhihuCollect', cronExpression: '0 0/1 * * * ?')
+//        cron(name: 'zhihuCollect',cronExpression: '0 0/1 * * * ?')
     }
 
     def execute() {
@@ -53,7 +53,7 @@ class ZhihuCollectJob {
                                     vote: vote,
                                     author: author,
                                     authorDesc: authorDesc,
-                                    content: content,
+                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url="),
                                     createdDate: createdDate,
                                     viewTime: viewTime,
                                     commentTimes: commentTimes,
