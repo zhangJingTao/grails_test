@@ -7,7 +7,7 @@ import org.jsoup.select.Elements
  */
 class SpiderJob {
     static  triggers = {
-       cron(name: 'spiderJob',cronExpression: '0 0 3 * * ?')
+//       cron(name: 'spiderJob',cronExpression: '0 0 3 * * ?')
     }
 
     def execute(){

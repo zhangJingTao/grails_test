@@ -6,7 +6,7 @@ import org.springframework.core.io.support.PropertiesLoaderUtils
  */
 class WeiboImgDownloadJob {
     static  triggers = {
-        cron(name: 'weiboCollect',cronExpression: '50 0/10 * * * ?')
+//        cron(name: 'weiboCollect',cronExpression: '50 0/10 * * * ?')
     }
 
     def properties = PropertiesLoaderUtils.loadProperties(new ClassPathResource('app.properties'))
