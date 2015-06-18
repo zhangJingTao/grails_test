@@ -26,7 +26,7 @@
         })
 
         function getNext(){
-            var template = '<div class="panel {class}"><div class="panel-body">{title}</div><div class="panel-footer">{content}</div></div>'
+            var template = '<div id="div{id}" class="panel {class}"><div class="panel-body">{title}</div><div class="panel-footer">{content}<span class="label label-info" onclick="{method}">x</span></div></div>'
             if(!pending){
                 pending = true
                 var url = "/zhihu/giveMeFive?minId="+baseId+"&_="+new Date().getTime()
@@ -38,6 +38,8 @@
                             html += template.replace("{title}",ele.title)
                                     .replace("{content}",ele.content)
                                     .replace("{class}",classes[index%5])
+                                    .replace("{id}",ele.id)
+                                    .replace("{method}","delThis("+ele.id+")")
                         })
                         baseId = data.nexBaseId
                         $("#content").append(html)
@@ -45,6 +47,14 @@
                     pending = false
                 })
             }
+        }
+
+        function delThis(obj){
+            var url = "/zhihu/del?id="+obj
+            $("#div"+obj).css("display","none")
+            $.getJSON(url,function(data){
+            })
+            window.location.href = "#div"+obj
         }
 
     </script>

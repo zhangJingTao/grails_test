@@ -57,7 +57,8 @@ class ZhihuCollectJob {
                                     createdDate: createdDate,
                                     viewTime: viewTime,
                                     commentTimes: commentTimes,
-                                    zhihuId: zhihuId
+                                    zhihuId: zhihuId,
+                                    enabled: true
                             )
                             zcc.collect = c
 

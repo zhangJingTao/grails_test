@@ -17,6 +17,7 @@ class ZhihuCollectContent {
     String author
     String authorDesc
     String questionUrl
+    Boolean enabled
     ZhihuCollect collect
 
 //    String getContent() {
