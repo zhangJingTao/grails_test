@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Cache-Control" content="no-cache"/>
     <meta http-equiv="Expires" content="Thu, 01 Jan 1970 00:00:01 GMT"/>
@@ -13,7 +14,9 @@
     <g:renderException exception="${exception}"/>
 </g:if>
 <g:else>
-    <div id="td-wrapper">
+    <div id="wrapper">
+
+        <div id="td-wrapper">
         <h1>服务器提了一个问题....</h1>
 
         <div id="td-loading">加载中...</div>
@@ -25,7 +28,7 @@
         <a href="https://github.com/oldj/html5-tower-defense" target="_blank">源码</a>
     </div>
     </div>
-
+</div>
     <script type="text/javascript" src="/js/tower/td.js"></script>
     <script type="text/javascript" src="/js/tower/td-lang.js"></script>
     <script type="text/javascript" src="/js/tower/td-event.js"></script>
@@ -43,7 +46,9 @@
     <script type="text/javascript" src="/js/tower/td-msg.js"></script>
     <script type="text/javascript" src="/js/tower/td-walk.js"></script>
 
-    <!--<script type="text/javascript" src="td-pkg-min.js?fmts=1"></script>-->
+%{--
+    <script type="text/javascript" src="td-pkg-min.js?fmts=1"></script>
+--}%
     <script type="text/javascript">
         window.onload = function () {
             _TD.init("td-board", true);
@@ -51,7 +56,6 @@
             document.getElementById("td-board").style.display = "block";
         };
     </script>
-
 </g:else>
 </body>
 </html>

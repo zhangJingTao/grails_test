@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>SleepWeibo 0.1</title>
     <!-- jQuery -->
     <script src="/main/js/jquery.js"></script>
     <link href="/css/nav.css" rel="stylesheet">
@@ -18,7 +17,8 @@
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
     <script type="text/javascript">
         var pending = false
-        var baseId = 99999999999
+        var baseId = ${baseId}
+        var count = 0 //超过3次后开始自动删除前10个list-group-item
         var classes = ['panel-primary','panel-success','panel-info','panel-warning','panel-danger']
         $(document).ready(function () {
             var navigation = responsiveNav("#nav", {customToggle: "#nav-toggle"});
@@ -26,25 +26,34 @@
         })
 
         function getNext(){
-            var template = '<div id="div{id}" class="panel {class}"><div class="panel-body">{title}</div><div class="panel-footer">{content}<span class="label label-info" onclick="{method}">x</span></div></div>'
+            var template = '<a href="/zhihu/detail/{id}" class="list-group-item"><h4 class="list-group-item-heading">{title}</h4><p class="list-group-item-text">{author}{authordesc}</p></a>'
             if(!pending){
                 pending = true
-                var url = "/zhihu/giveMeFive?minId="+baseId+"&_="+new Date().getTime()
+                var url = "/zhihu/giveMeFive?max=10&minId="+baseId+"&_="+new Date().getTime()
                 var html =""
                 $.getJSON(url,function(data){
                     if(data.status == 1){
                         var list = data.list
                         $.each(list,function(index,ele){
+                            var author = ele.author
+                            if(author.length == 0) author = '匿名用户'
                             html += template.replace("{title}",ele.title)
                                     .replace("{content}",ele.content)
-                                    .replace("{class}",classes[index%5])
+                                    .replace("{author}",author)
                                     .replace("{id}",ele.id)
-                                    .replace("{method}","delThis("+ele.id+")")
+                                    .replace("{authordesc}",ele.authorDesc==null? "":ele.authorDesc)
                         })
                         baseId = data.nexBaseId
                         $("#content").append(html)
                     }
                     pending = false
+                    $("#moreBtn").show()
+                    count ++
+                    if(count >3){
+                        for(var i = 0;i<10;i++){
+                            $($(".list-group-item")[0]).remove()
+                        }
+                    }
                 })
             }
         }
@@ -56,7 +65,6 @@
             })
             window.location.href = "#div"+obj
         }
-
     </script>
 </head>
 
@@ -77,11 +85,11 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 col-md-offset-2" id="content">
-
+    <div class="col-md-8 col-md-offset-2">
+        <div class="list-group" id="content"></div>
     </div>
     <div class="col-md-2 col-md-offset-5">
-        <button type="button" class="btn btn-warning" style="width: 100%" onclick="getNext()">查看更多</button>
+        <a href="#moreBtn" type="button" class="btn btn-success" style="width: 100%" id="moreBtn"  style="display: none" onclick="getNext()">查看更多</a>
     </div>
 </div>
 </body>

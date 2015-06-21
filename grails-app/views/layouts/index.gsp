@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Inspiration-v2.0</title>
+    <title>Slees's Definitation</title>
     <!-- jQuery -->
     <script src="/main/js/jquery.js"></script>
     <!-- Bootstrap Core CSS -->
