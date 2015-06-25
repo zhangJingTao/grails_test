@@ -15,8 +15,10 @@ class SeaFileController {
         def json = JSONObject.parse(result) as JSONObject
         def token = json.get("token")
         def pwd = UUID.randomUUID().toString().substring(0,7)
-        def regCommand = "curl -v -X PUT -d \"password="+pwd+"\" -H \"Authorization: Token "+token+"\" -H 'Accept: application/json; indent=4' "+seaServerUrl+"/api2/accounts/"+email+"/"
+
+        def template = "curl -v -X PUT -d \"password={pwd}\" -H \"Authorization: Token {token}\" -H 'Accept: application/json; indent=4' {host}/api2/accounts/{email}/"
+        def regCommand = template.replace("{pwd}",pwd).replace("{token}",token).replace("{host}",seaServerUrl).replace("{email}",email)
         print regCommand.execute().text
-        render pwd
+        render "注册完毕...密码:"+pwd
     }
 }
