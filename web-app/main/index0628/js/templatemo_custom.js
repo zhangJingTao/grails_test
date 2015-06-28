@@ -63,11 +63,6 @@
 
     //mobile menu and desktop menu
     $("#responsive-menu").css({"right":-1500});
-    $("#mobile_menu").click(function(){
-            $("#responsive-menu").show();
-            $("#responsive-menu").animate({"right":0});
-            return false;
-    });
     $(window).on("load resize", function(){
             if($(window).width()>768){
                 $("#responsive-menu").css({"right":-1500});
@@ -76,8 +71,7 @@
 
     $("#responsive-menu a").click(function(){
       $("#responsive-menu").hide();
-    });  
-
+    });
 
 
 
