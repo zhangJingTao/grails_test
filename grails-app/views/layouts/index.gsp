@@ -1,260 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sleep-Based On Grails</title>
     <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Slees's Definitation</title>
-    <!-- jQuery -->
-    <script src="/main/js/jquery.js"></script>
-    <!-- Bootstrap Core CSS -->
-    <link href="/main/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="/main/css/grayscale.css" rel="stylesheet">
-    <!-- Custom Fonts -->
-    <link href="/main/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.useso.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="http://fonts.useso.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- messager -->
-    <script src="/js/messenger.min.js"></script>
-    <script src="/js/messenger-theme-future.js"></script>
-    <link href="/css/messenger.css" rel="stylesheet">
-    <link href="/css/messenger-theme-future.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width">
 
-    <script type="text/javascript">
-        var btn
-        $(document).ready(function(){
-            $("#rssBtn").on('click', function () {
-                var email = $("#rssEmail").val();
-                var url = "/rssEmail/rssAdd?email="+email+"&_"+new Date().getTime();
-                btn = $(this).button('loading')
-                $.getJSON(url,function(data){
-                    if(data.result==1){
-                        $.globalMessenger().post({
-                            message: '订阅成功.',
-                            showCloseButton: true,
-                            id: "Only-one-message"
-                        });
-                    }else{
-                        $.globalMessenger().post({
-                            message: '订阅失败.',
-                            showCloseButton: true,
-                            id: "Only-one-message"
-                        });
-                    }
-                    btn.button('reset')
-                })
-            })
-            $._messengerDefaults = {
-                extraClasses: 'messenger-fixed messenger-theme-future messenger-on-top'
-            }
-            //Git更新历史
-            var gitUrl = "/git/commitHistory?limit=4"
-            $.getJSON(gitUrl,function(data){
-                var htmlTemplate = '<div class="panel panel-danger"><div class="panel-footer" onclick="window.open(\'{respUrl}\')">{resp}</div><div class="panel-body" onclick="window.open(\'{commitUrl}\')">{commit}</div></div>'
-                var html = '';
-               //<span class="badge"></span>
-                $.each(data,function(index,ele){
-                    var badge = '<span class="badge">'+new Date(ele.commit_date).format("yyyy/MM/dd hh:mm:ss")+'</span>'
-                    html += htmlTemplate.replace("{respUrl}",ele.repository_url).replace("{resp}",ele.repository_name+"@"+badge).replace("{commitUrl}",ele.commit_url).replace("{commit}",ele.commit_msg)
-                })
-                $("#git-list-group").html(html);
-            })
-        })
+    <!-- Bootstrap Stylesheet -->
+    <link rel="stylesheet" href="/main/index0628/css/bootstrap.min.css">
+
+    <!-- Animate -->
+    <link rel="stylesheet" href="/main/index0628/css/animate.min.css">
 
 
-        Date.prototype.format = function(format){
-            var o = {
-                "M+" : this.getMonth()+1, //month
-                "d+" : this.getDate(), //day
-                "h+" : this.getHours(), //hour
-                "m+" : this.getMinutes(), //minute
-                "s+" : this.getSeconds(), //second
-                "q+" : Math.floor((this.getMonth()+3)/3), //quarter
-                "S" : this.getMilliseconds() //millisecond
-            }
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="/main/index0628/css/font-awesome.min.css">
 
-            if(/(y+)/.test(format)) {
-                format = format.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
-            }
+    <!-- Normailize Stylesheet -->
+    <link rel="stylesheet" href="/main/index0628/css/normalize.min.css">
 
-            for(var k in o) {
-                if(new RegExp("("+ k +")").test(format)) {
-                    format = format.replace(RegExp.$1, RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
-                }
-            }
-            return format;
-        }
-    </script>
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="/main/index0628/css/templatemo_style.css">
+
+    <script src="/main/index0628/js/vendor/modernizr-2.6.2.min.js"></script>
+
 </head>
+<body>
+<!--[if lt IE 8]>
+    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="#/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-<!-- Navigation -->
-<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+<div id="responsive-menu">
+    <ul class="menu-holder">
+        <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+        <li><a href="#services"><i class="fa fa-cogs"></i>Services</a></li>
+        <li><a href="#products"><i class="fa fa-list"></i>Products</a></li>
+        <li><a href="#video"><i class="fa fa-list"></i>Video</a></li>
+        <li><a href="#contact"><i class="fa fa-envelope"></i>Contact</a></li>
+    </ul>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                <i class="fa fa-bars"></i>
-            </button>
-            <a class="navbar-brand page-scroll" href="#page-top">
-                <i class="fa fa-play-circle"></i>  <span class="light">Start</span>
-            </a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-            <ul class="nav navbar-nav">
-                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                <li class="hidden">
-                    <a href="#page-top"></a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#about">About</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#download">Source</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#wn">What's New</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
-
-<!-- Intro Header -->
-<header class="intro">
-    <div class="intro-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <h1 class="brand-heading">OnlySleep</h1>
-                    <p class="intro-text">想你所想,给你所要</p>
-                    <a href="#about" class="btn btn-circle page-scroll">
-                        <i class="fa fa-angle-double-down animated"></i>
-                    </a>
+        <div class="row">
+            <div class="menu-holder">
+                <div class="col-md-3 col-sm-2 logo" style="font-size: 33px;color: #39c8e2">
+                        Sleep
+                </div>
+                <div class="col-md-7 col-sm-8">
+                    <nav class="main-menu hidden-xs">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#services">Services</a></li>
+                            <li><a href="#products">Products</a></li>
+                            <li><a href="#video">Video</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-12">
+                    <ul class="social-top">
+                        <li><a href="#"><i class="fa fa-facebook"></i><span class="hidden-xs">Facebook</span></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i><span class="hidden-xs">Twitter</span></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i><span class="hidden-xs">Instagram</span></a></li>
+                    </ul>
                 </div>
             </div>
+
+
+            <div class="text-right visible-xs">
+                <a href="#" id="mobile_menu"><span class="fa fa-bars"></span></a>
+            </div>
         </div>
     </div>
-</header>
+</header> <!-- .site-header -->
 
-<!-- About Section -->
-<section id="about" class="container content-section text-center">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <h2>About...</h2>
-            <p><s>很忙，根本没想过要写这个地方</s></p>
-        </div>
-    </div>
-</section>
-
-<!-- Download Section -->
-<section class="content-section text-center" id="download" style="padding-top: 180px">
-    <div class="download-section">
-        <div class="container">
-            <div class="row">
-            <div class="col-lg-8 col-lg-offset-2">
-                <h2>Source</h2>
-                <p>整个站点的代码都可以在这里下载！</p>
-                <a href="https://github.com/zhangJingTao/sleep-site" class="btn btn-default btn-lg">Visit Github</a>
-            </div>
-            </div>
-            <br>
-            <div class="col-lg-8 col-lg-offset-2">
-                <div class="list-group" id="git-list-group" style="color: black;text-align: left">
-
+<!-- TOP CONTENT -->
+<div class="top-c">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-lg-5 col-md-5 col-xs-offset-1 col-sm-5 col-xs-8 col-xs-offset-2">
+                <div class="topc-img">
+                    <img src="/main/index0628/images/slide1.png" alt="">
                 </div>
             </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <h3 class="topc-title">Ocean HTML5 Template</h3>
+                <ul>
+                    <li><i class="fa fa-check"></i>Integer sollicitudin dolor quis quam fermentum, quis congue nulla tincidunt.</li>
+                    <li><i class="fa fa-check"></i>Fusce malesuada erat non magna blandit, eu placerat ipsum dignissim.</li>
+                    <li><i class="fa fa-check"></i>Vestibulum euismod turpis auctor, lobortis quam non, lacinia ligula.</li>
+                    <li><i class="fa fa-check"></i>Sed tristique quam in magna euismod, et ullamcorper ipsum tempus.</li>
+                    <li><i class="fa fa-check"></i>Nullam dapibus odio nec orci euismod, vitae scelerisque dolor facilisis.</li>
+                </ul>
+            </div>
         </div>
     </div>
-</section>
-<!-- What's New -->
-<section id="wn" class="container content-section text-center">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <h2>What's New...</h2>
-            <p><s></s></p>
-            <ul class="list-group" style="color: #000000">
-                <li class="list-group-item">
-                    <span class="badge">2015-05-19</span>
-                    <s>全新的页面上线，<a href="#download">Rss订阅功能</a>,虽然没有什么卵用</s>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">2015-05-20</span>
-                    Chrome插件，匿名统计你的浏览器行为，<a href="/chrome/index">VisitCountPlugin</a>
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">2015-05-26</span>
-                    Git Webhooks服务，Git代码更新自动同步到本站！
-                </li>
-                <li class="list-group-item">
-                    <span class="badge">2015-05-20</span>
-                    <a href="/weibo">Sleep微博服务</a>，不断完善中。
-                </li>
-            </ul>
+</div>
+
+
+<!-- SERVICES -->
+<div class="content-section" id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-xs-6 text-center">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fa fa-video-camera"></i>
+                    </div>
+                    <h3 class="service-title">RESPONSIVE LAYOUT</h3>
+                </div> <!-- .service-item -->
+            </div> <!-- .col-md-3 -->
+            <div class="col-md-3 col-xs-6 text-center">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fa fa-desktop"></i>
+                    </div>
+                    <h3 class="service-title">CLEAN AND MINIMAL</h3>
+                </div> <!-- .service-item -->
+            </div> <!-- .col-md-3 -->
+            <div class="col-md-3 col-xs-6 text-center">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fa fa-headphones"></i>
+                    </div>
+                    <h3 class="service-title">CREATIVE IDEAS</h3>
+                </div> <!-- .service-item -->
+            </div> <!-- .col-md-3 -->
+            <div class="col-md-3 col-xs-6 text-center">
+                <div class="service-item">
+                    <div class="service-icon">
+                        <i class="fa fa-support"></i>
+                    </div>
+                    <h3 class="service-title">PREMIUM SUPPORT</h3>
+                </div> <!-- .service-item -->
+            </div> <!-- .col-md-3 -->
+        </div> <!-- .row -->
+    </div> <!-- .container -->
+</div> <!-- #services -->
+
+
+<!-- PRODUCTS -->
+<div class="content-section" id="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-5 col-xs-12 text-center">
+                    <img src="/main/index0628/images/product-1.png" alt="">
+                </div>
+                <div class="product-content col-md-7 col-xs-12">
+                    <h3>Digital Content</h3>
+                    <span>New Pen Tool</span>
+                    <p>Ocean is <a href="#">free HTML5 template</a> from templatemo website. Credit goes to Smashing Magazine for Art Professions Icon set. Aenean risus neque, dignissim nec orci in, hendrerit tempor ligula. Suspendisse sed nisi eget sapien ltrices.</p>
+                </div>
+            </div> <!-- .col-md-6 -->
+            <div class="col-md-6">
+                <div class="product-content col-md-7 col-xs-12">
+                    <h3>Artwork Creation</h3>
+                    <span>Simple Drawing</span>
+                    <p>You can easily change icons by Font Awesome. Example: &lt;i class=&quot;fa fa-video-camera&quot;&gt;&lt;/i&gt; Etiam interdum elementum massa, sit amet pretium orci sollicitudin pellenue. Aenean risus neque, dignissim nec orci in, hendrerit tempor ligula.</p>
+                </div>
+                <div class="col-md-5 col-xs-12 text-center">
+                    <img src="/main/index0628/images/product-2.png" alt="">
+                </div>
+            </div> <!-- .col-md-6 -->
         </div>
     </div>
-</section>
+</div> <!-- #products -->
 
 
-<!-- Contact Section -->
-<section id="contact" class="container content-section text-center">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2">
-            <h2>Contact Me</h2>
-            <p></p>
-            <p><a href="mailto:zhangjingtaosleep@163.com">zhangjingtaosleep@163.com</a>
-            </p>
-            <ul class="list-inline banner-social-buttons">
-                <!--  <li>
-                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>-->
-                <li>
-                    <a href="https://github.com/zhangjingtao" class="btn btn-default btn-lg"><i class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                </li>
-                <!--                    <li>
-                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                    </li>-->
-            </ul>
+<!-- VIDEO FEATURe -->
+<div id="video" class="video-feature content-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="video embed-responsive embed-responsive-16by9">
+
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div> <!-- .row -->
+    </div> <!-- .container -->
+</div> <!-- .video-feature -->
+
+
+<!-- CONTACT -->
+<div class="content-section" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center section-header">
+                <h2 class="section-title">Contact Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam quisquam magni praesentium minima quidem tempore deserunt dolor! Tenetur eveniet suscipit, velit aperiam quam nostrum id iure obcaecati.</p>
+            </div>
         </div>
-    </div>
-</section>
+        <div class="row">
+            <div class="col-md-5 contact-info">
+                <p>Etiam interdum elementum massa amaas, sit amet pretium orci sollicitudin pellenue. Aeneanss risus neque, dignissim nec orci in. <br><br>Hendrerit tempor ligula. Suspendisse sed nisi eget sapien ltrices.</p>
+                <ul>
+                    <li><i class="fa fa-phone"></i> 090-080-0980</li>
+                    <li><i class="fa fa-map-marker"></i> 360 Aenean Quis Semper, Maecenas 10450</li>
+                    <li><i class="fa fa-envelope"></i> <a href="mailto:info@company.com">info@company.com</a></li>
+                </ul>
+            </div> <!-- .col-md-5 -->
+            <div class="col-md-7">
+                <div class="row">
+                    <form class="contact-form" action="#" method="post">
+                        <fieldset class="col-md-6">
+                            <input type="text" name="name" placeholder="Name...">
+                        </fieldset>
+                        <fieldset class="col-md-6">
+                            <input type="email" name="email" placeholder="Email...">
+                        </fieldset>
+                        <fieldset class="col-md-12">
+                            <input type="text" name="subject" placeholder="Subject...">
+                        </fieldset>
+                        <fieldset class="col-md-12">
+                            <textarea name="message" id="message" cols="30" rows="5" placeholder="Message..."></textarea>
+                        </fieldset>
+                        <fieldset class="col-md-12">
+                            <input type="submit" value="Send Message" class="main-button">
+                        </fieldset>
+                    </form>
+                </div> <!-- .row -->
+            </div> <!-- .col-md-8 -->
+        </div> <!-- .row -->
+    </div> <!-- .container -->
+</div> <!-- #contact -->
 
-<!-- Map Section -->
-<div id="map"></div>
 
-<!-- Footer -->
-<footer>
-    <div class="container text-center">
-        <p>Copyright &copy; OnlySleep.net 2015 京ICP备15022349号</p>
-    </div>
-	<div align="center"><a href="http://www.amazingcounters.com"><img border="0" src="http://cc.amazingcounters.com/counter.php?i=3189687&c=9569374" alt="AmazingCounters.com"></a></div>
-</footer>
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <p></p>
+            </div> <!-- .col-md-12 -->
+        </div> <!-- .row -->
+    </div> <!-- .container -->
+</footer> <!-- .site-footer -->
 
-<!-- Bootstrap Core JavaScript -->
-<script src="/main/js/bootstrap.min.js"></script>
 
-<!-- Plugin JavaScript -->
-<script src="/main/js/jquery.easing.min.js"></script>
-<!-- Custom Theme JavaScript -->
-<script src="/main/js/grayscale.js"></script>
-<script language="javascript" type="text/javascript" src="http://js.users.51.la/17826609.js"></script>
-<noscript><a href="http://www.51.la/?17826609" target="_blank"><img alt="&#x6211;&#x8981;&#x5566;&#x514D;&#x8D39;&#x7EDF;&#x8BA1;" src="http://img.users.51.la/17826609.asp" style="border:none" /></a></noscript>
+<script src="/main/index0628/js/vendor/jquery-1.10.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="/main/index0628/js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+
+<script src="/main/index0628/js/bootstrap.min.js"></script>
+<script src="/main/index0628/js/plugins.js"></script>
+<script src="/main/index0628/js/templatemo_custom.js"></script>
+
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
 </body>
-
 </html>
