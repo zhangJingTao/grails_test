@@ -137,7 +137,7 @@
                         <i class="fa fa-video-camera"></i>
                     </div>
 
-                    <h3 class="service-title">Responsive Is Well</h3>
+                    <h3 class="service-title">Responsive</h3>
                 </div> <!-- .service-item -->
             </div> <!-- .col-md-3 -->
             <div class="col-md-3 col-xs-6 text-center">
