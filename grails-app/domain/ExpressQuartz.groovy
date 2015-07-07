@@ -4,7 +4,7 @@
 class ExpressQuartz {
 
     static constraints = {
-
+        notiEmail(email: true)
     }
 
 
