@@ -34,6 +34,18 @@
                 }
             })
         }
+        function joinIt(){
+            var url = "/express/joinIt?company="+$("#expressCode").val()+"&text="+$("#expressNo").val()+"&email="+$("#email").val()+"&_="+new Date().getTime()
+            $.getJSON(url,function(data){
+                if(data=='error'){
+                    alert("请检查输入");
+                }else{
+                    $.each(data.data,function(inx,ele){
+                        console.log(ele)
+                    })
+                }
+            })
+        }
     </script>
 </head>
 
@@ -46,7 +58,7 @@
             <p>
             <div class="input-group">
                 <span class="input-group-addon" id="sizing-addon2">No.</span>
-                <input type="text" class="form-control" placeholder="请输入快递单号" aria-describedby="sizing-addon2" onkeyup="initSelect(this)">
+                <input type="text" class="form-control" placeholder="请输入快递单号" id="expressNo" aria-describedby="sizing-addon2" onkeyup="initSelect(this)">
                 <input type="hidden" id="expressCode" value="">
             </div></p>
             <p>
@@ -64,9 +76,9 @@
             </p>
             <p>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="输入Email">
+                <input type="text" class="form-control" placeholder="输入Email" id="email">
                 <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">订阅!</button>
+                    <button class="btn btn-default" type="button" onclick="joinIt()">订阅!</button>
                 </span>
             </div><!-- /input-group -->
         </div>
