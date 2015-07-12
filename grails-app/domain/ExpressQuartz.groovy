@@ -11,10 +11,13 @@ class ExpressQuartz {
     String expressNo
     String company
     Date lastUpdate
+    Date createDate
     String lastQueryJson
     String lastNu
     Boolean unChecked
     String notiEmail
+    Boolean notification
+    Integer times
 
 
 }

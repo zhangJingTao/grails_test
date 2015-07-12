@@ -23,7 +23,8 @@ class SendMailService {
         this.fromEmail = 'noreply<noreply@onlysleep.net>'
         this.toEmail = toEmail
         this.mailObject = mailObject
-        this.emailBody = generateContent(emailBody)
+        this.emailBody = emailBody
+//                generateContent(emailBody)
 
     }
 
@@ -31,7 +32,8 @@ class SendMailService {
         this.fromEmail = 'noreply<noreply@onlysleep.net>'
         this.toEmail = toEmail
         this.mailObject = mailObject
-        this.emailBody = generateContent(emailBody)
+        this.emailBody = emailBody
+//                generateContent(emailBody)
         this.attach = attach
 
     }
@@ -66,7 +68,7 @@ class SendMailService {
     public void setTaskExecutor(TaskExecutor taskExecutor) {
         this.taskExecutor = taskExecutor
     }
-    private String generateContent(bodyContent) {
+    def generateContent(bodyContent) {
         if(bodyContent instanceof String) {
             return bodyContent
         }else if(bodyContent instanceof Closure) {
