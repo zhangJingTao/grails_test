@@ -12,7 +12,7 @@
             <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc; border-collapse: collapse;">
                 <tr>
                     <td align="center" bgcolor="#70bbd9" style="padding: 40px 0 30px 0; color: #153643; font-size: 28px; font-weight: bold; font-family: Arial, sans-serif;">
-                        <img src="http://localhost/cdn/images/h1.gif" alt="Creating Email Magic" width="300" height="230" style="display: block;" />
+                        <img src="http://onlysleep.net/cdn/images/h1.gif" alt="Creating Email Magic" width="300" height="230" style="display: block;" />
                     </td>
                 </tr>
                 <tr>
@@ -25,9 +25,9 @@
                             </tr>
                             <tr>
                                 <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;font-size: 10px;">
-                                    <g:each in="${list}" var="ele">
-                                        ${ele.time}&nbsp;&nbsp;&nbsp;${ele.context}<br>
-                                    </g:each>
+                                <#list list as li>
+                                ${li.time}&nbsp;${li.context}<br/>
+                                </#list>
                                 </td>
                             </tr>
                             <tr>
@@ -38,7 +38,7 @@
                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                     <tr>
                                                         <td>
-                                                            <img src="http://localhost/cdn/images/left.gif" alt="" width="100%" height="140" style="display: block;" />
+                                                            <img src="http://onlysleep.net/cdn/images/left.gif" alt="" width="100%" height="140" style="display: block;" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -55,7 +55,7 @@
                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                                     <tr>
                                                         <td>
-                                                            <img src="http://localhost/cdn/images/right.gif" alt="" width="100%" height="140" style="display: block;" />
+                                                            <img src="http://onlysleep.net/cdn/images/right.gif" alt="" width="100%" height="140" style="display: block;" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -86,7 +86,7 @@
                             <tr>
                                 <td style="color: #000000; font-family: Arial, sans-serif; font-size: 10px;" width="75%">
                                 如果你不想收到有关该快递的动态，请点击:
-                                    <a href="http://localhost/express/unnoti?id=${id}" target="_blank" style="color: #ffffff;"><font color="#ffffff">这里</font></a>
+                                    <a href="http://onlysleep.net/express/unnoti?id=${id}" target="_blank" style="color: #ffffff;"><font color="#ffffff">这里</font></a>
                                 </td>
                                 <td align="right" width="25%">
                                 </td>

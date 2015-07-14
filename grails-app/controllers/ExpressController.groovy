@@ -4,6 +4,7 @@ import grails.converters.JSON
 
 class ExpressController {
     def sendMailService
+    def freemarkerConfig
     def index() {
 //        sendMailService.SendEmailAsynchronously("610039879@qq.com","fdjslkatest","fklslj21body!!!")
 //        sendMailService.sendMail()
@@ -69,14 +70,22 @@ class ExpressController {
 
     def test = {
 //        ExpressMailContentGenerator generator = new ExpressMailContentGenerator()
-//        def content = generator.getContent("C:\\git_work\\sleep-site\\grails-app\\views\\express\\_expressMail.gsp","fdsafdsa")
+//        def content = generator.getContent("C:\\git_work\\sleep-site\\grails-app\\views\\express\\expressMail.ftl","fdsafdsa")
         ExpressQuartz quartz = ExpressQuartz.get(1)
         JSONObject json = JSONObject.parseObject(quartz.lastQueryJson)
         def array = json.get("data")
         def start = quartz.createDate
         def times = quartz.times
         SendMailService sms = new SendMailService()
-        sms.SendEmailAsynchronously("610039879@qq.com","测试123",g.render(template: 'expressMail',model: [list:array,date:start,times:times,id:quartz.id]))
+        HashMap<String,Object> map = new HashMap<String,Object>()
+        FreemarkerUtils.initFreeMarker(freemarkerConfig.getConfiguration());
+        map.put("date",quartz.createDate.format("yyyy-MM-dd HH:mm:ss"))
+        map.put("times",quartz.times)
+        map.put("list",array)
+        map.put("id",quartz.id)
+        File outPutFile = FreemarkerUtils.crateFile(map,"/express/expressMail.ftl","test.html",false)
+        log.info outPutFile.getAbsolutePath()
+        sms.SendEmailAsynchronously("610039879@qq.com","测试123",outPutFile)
         sms.sendMail()
     }
 }

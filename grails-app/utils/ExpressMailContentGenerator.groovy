@@ -18,7 +18,7 @@ class ExpressMailContentGenerator {
 
     public static void main(String[] args) {
 //        ExpressMailContentGenerator generator = new ExpressMailContentGenerator()
-//        def content = generator.getContent("C:\\git_work\\sleep-site\\grails-app\\views\\express\\_expressMail.gsp","fdsafdsa")
+//        def content = generator.getContent("C:\\git_work\\sleep-site\\grails-app\\views\\express\\expressMail.ftl","fdsafdsa")
 //        SendMailService sms = new SendMailService()
 //        sms.SendEmailAsynchronously("610039879@qq.com","测试123",content)
     }

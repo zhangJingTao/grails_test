@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="freemarkerConfiguration"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location" value="classpath:freemarker.properties" />
+    </bean>
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="freemarkerSettings" ref="freemarkerConfiguration" />
+        <property name="templateLoaderPath">
+            <value>/WEB-INF/freemarker/</value>
+        </property>
+        <!--<property name="freemarkerVariables">&lt;!&ndash;设置一些常用的全局变量&ndash;&gt;
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape" />
+                <entry key="webRoot" value="/"></entry>
+                <entry key="jsRoot" value="/js"></entry>
+            </map>
+        </property>-->
+    </bean>
+</beans>

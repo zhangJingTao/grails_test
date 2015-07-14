@@ -1,16 +1,18 @@
 import com.alibaba.fastjson.JSONObject
+import org.codehaus.groovy.grails.commons.ApplicationHolder
+import org.codehaus.groovy.grails.commons.GrailsApplication
+import org.codehaus.groovy.grails.plugins.support.aware.GrailsApplicationAware
 import org.codehaus.groovy.grails.plugins.web.taglib.RenderTagLib
 
 /**
  * 快递自动更新任务
  */
-class ExpressJob {
+class ExpressJob{
     def sendMailService
     def expressService
-    RenderTagLib g = new RenderTagLib()
-
+    def freemarkerConfig
     static  triggers = {
-        cron(name: 'expressJob',cronExpression: '0 0/1 * * * ?')
+        cron(name: 'expressJob',cronExpression: '0 0/30 * * * ?')
     }
 
     def execute(){
@@ -37,10 +39,17 @@ class ExpressJob {
                     }
                     quartz.save(flush: true)
                     if (lastNu != quartz.lastNu){//有新动态
-                        def array = json.get("data")
-                        def start = quartz.createDate
                         SendMailService sms = new SendMailService()
-                        sms.SendEmailAsynchronously("610039879@qq.com","快递"+quartz.expressNo+"有新的动态",g.render(template: 'expressMail',model: [list:array,date:start.format("yyyy-MM-dd HH:mm:ss"),times:times+1,id:quartz.id]))
+                        HashMap<String,Object> map = new HashMap<String,Object>()
+                        FreemarkerUtils.initFreeMarker(freemarkerConfig.getConfiguration());
+                        def array = json.get("data")
+                        map.put("date",quartz.createDate.format("yyyy-MM-dd HH:mm:ss"))
+                        map.put("times",quartz.times)
+                        map.put("list",array)
+                        map.put("id",quartz.id)
+                        File outPutFile = FreemarkerUtils.crateFile(map,"/express/expressMail.ftl","test.html",false)
+                        log.info outPutFile.getAbsolutePath()
+                        sms.SendEmailAsynchronously(quartz.notiEmail,"快递"+quartz.expressNo+"有新的动态",outPutFile)
                         sms.sendMail()
                         ExpressQuartzEmailLog log = new ExpressQuartzEmailLog(
                                 quartz: quartz,

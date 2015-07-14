@@ -46,6 +46,7 @@ grails.project.dependency.resolution = {
         compile 'org.jsoup:jsoup:1.8.2'
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
         compile 'net.sf.ezmorph:ezmorph:1.0.6'
+        compile 'org.freemarker:freemarker:2.3.16'
 //        compile 'net.sf.json-lib:json-lib:2.4'
 //        compile 'xml-resolver:xml-resolver:1.2'
     }
@@ -59,5 +60,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.0.1'
         compile ':quartz:1.0.2'
         compile ":mail:1.0.1"
+//        compile ":freemarker:1.0-SNAPSHOT"
+//        compile ":freemarker-tags:0.7.2"
     }
 }

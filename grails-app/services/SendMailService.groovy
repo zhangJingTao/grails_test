@@ -1,3 +1,4 @@
+import org.apache.commons.io.FileUtils
 import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.springframework.core.task.TaskExecutor;
 
@@ -23,8 +24,7 @@ class SendMailService {
         this.fromEmail = 'noreply<noreply@onlysleep.net>'
         this.toEmail = toEmail
         this.mailObject = mailObject
-        this.emailBody = emailBody
-//                generateContent(emailBody)
+        this.emailBody = generateContent(emailBody)
 
     }
 
@@ -79,6 +79,9 @@ class SendMailService {
                 body(bodyContent)
             }
             return sw.toString()
+        }else if (bodyContent instanceof File){
+            def sw = FileUtils.readFileToString(bodyContent)
+            return sw
         }
     }
 
