@@ -5,6 +5,9 @@ class ExpressQuartz {
 
     static constraints = {
         notiEmail(email: true)
+        lastQueryJson(nullable: true)
+        lastNu(nullable: true)
+        unChecked(nullable: true)
     }
 
 

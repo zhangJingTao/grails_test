@@ -47,12 +47,14 @@ class ExpressController {
                 unChecked:unChecked,
                 notiEmail:email,
                 notification:true,
-                times:1
+                times:1,
+                createDate: new Date()
         )
         if (quartz.validate()){
-            quartz.save(flush: true)
+            quartz.save(flush: true,failOnError: true)
             render queryStr
         }else {
+            log.error quartz.errors.toString()
             render "error"
         }
     }

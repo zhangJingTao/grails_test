@@ -58,12 +58,8 @@
             var url = "/express/joinIt?company=" + $("#expressCode").val() + "&text=" + $("#expressNo").val() + "&email=" + $("#email").val() + "&_=" + new Date().getTime()
             $.getJSON(url, function (data) {
                 if (data == 'error') {
-                    $.globalMessenger().post({
-                        message: '请检查输入.',
-                        showCloseButton: true,
-                        id: "Only-one-message"
-                    });
-                } else {
+                    alert("请检查输入")
+                } else if(data.status=='200') {
                     var html =''
                     var isFirst = true
                     $.each(data.data, function (inx, ele) {
@@ -78,6 +74,8 @@
                     })
                     $("#resultList").html(html)
                     $("#result").show()
+                }else{
+                    alert(data.message);
                 }
             })
         }
