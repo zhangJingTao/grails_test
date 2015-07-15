@@ -43,7 +43,7 @@ class ExpressController {
                 company:company,
                 lastUpdate:new Date(),
                 lastQueryJson:queryStr,
-                lastNu:json.getString("nu"),
+                lastNu:json.getString("updatetime"),
                 unChecked:unChecked,
                 notiEmail:email,
                 notification:true,

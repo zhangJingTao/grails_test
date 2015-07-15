@@ -33,7 +33,7 @@ class ExpressJob{
                     quartz.lastUpdate = new Date()
                     quartz.times = times+1
                     quartz.lastQueryJson
-                    quartz.lastNu = json.getString("nu")
+                    quartz.lastNu = json.getString("updatetime")
                     quartz.unChecked = true
                     if (json.get("ischeck") == '1'){
                         quartz.unChecked = false
