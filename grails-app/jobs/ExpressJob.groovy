@@ -48,7 +48,7 @@ class ExpressJob{
                         map.put("times",quartz.times)
                         map.put("list",array)
                         map.put("id",quartz.id)
-                        map.put("key",quartz.key)
+                        map.put("key",quartz.notificationKey)
                         File outPutFile = FreemarkerUtils.crateFile(map,"/express/expressMail.ftl","test.html",false)
                         log.info outPutFile.getAbsolutePath()
                         sms.SendEmailAsynchronously(quartz.notiEmail,"快递"+quartz.expressNo+"有新的动态",outPutFile)

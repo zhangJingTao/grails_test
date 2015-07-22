@@ -49,7 +49,7 @@ class ExpressController {
                 notification:true,
                 times:1,
                 createDate: new Date(),
-                key: UUID.randomUUID().toString()
+                notificationKey: UUID.randomUUID().toString()
         )
         if (quartz.validate()){
             quartz.save(flush: true,failOnError: true)

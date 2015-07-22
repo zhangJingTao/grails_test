@@ -8,7 +8,7 @@ class ExpressQuartz {
         lastQueryJson(nullable: true)
         lastNu(nullable: true)
         unChecked(nullable: true)
-        uuid(nullable: true)
+        notificationKey(nullable: true)
     }
 
 
@@ -22,5 +22,5 @@ class ExpressQuartz {
     String notiEmail
     Boolean notification
     Integer times
-    String key
+    String notificationKey
 }
