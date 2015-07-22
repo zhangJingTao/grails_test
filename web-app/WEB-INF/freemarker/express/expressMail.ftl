@@ -86,7 +86,7 @@
                             <tr>
                                 <td style="color: #000000; font-family: Arial, sans-serif; font-size: 10px;" width="75%">
                                 如果你不想收到有关该快递的动态，请点击:
-                                    <a href="http://onlysleep.net/express/unnoti?id=${id}" target="_blank" style="color: #ffffff;"><font color="#ffffff">这里</font></a>
+                                    <a href="http://onlysleep.net/express/unnoti?id=${id}&key=${key}" target="_blank" style="color: #ffffff;"><font color="#ffffff">这里</font></a>
                                 </td>
                                 <td align="right" width="25%">
                                 </td>

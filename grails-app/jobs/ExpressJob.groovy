@@ -25,6 +25,7 @@ class ExpressJob{
                 def times = quartz.times
                 def company = quartz.company
                 def lastNu = quartz.lastNu
+                def lastData = JSONObject.parseObject(quartz.lastQueryJson).getJSONArray("data").toString()
                 def queryStr = expressService.query(no,company)
                 JSONObject json = JSONObject.parseObject(queryStr)
                 if (json.get("message")=='ok'){
@@ -38,7 +39,7 @@ class ExpressJob{
                         quartz.unChecked = false
                     }
                     quartz.save(flush: true)
-                    if (lastNu != quartz.lastNu){//有新动态
+                    if (lastData != json.getJSONArray("data").toString()){//有新动态
                         SendMailService sms = new SendMailService()
                         HashMap<String,Object> map = new HashMap<String,Object>()
                         FreemarkerUtils.initFreeMarker(freemarkerConfig.getConfiguration());
@@ -47,6 +48,7 @@ class ExpressJob{
                         map.put("times",quartz.times)
                         map.put("list",array)
                         map.put("id",quartz.id)
+                        map.put("key",quartz.key)
                         File outPutFile = FreemarkerUtils.crateFile(map,"/express/expressMail.ftl","test.html",false)
                         log.info outPutFile.getAbsolutePath()
                         sms.SendEmailAsynchronously(quartz.notiEmail,"快递"+quartz.expressNo+"有新的动态",outPutFile)

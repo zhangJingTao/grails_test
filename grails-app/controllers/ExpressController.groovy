@@ -48,7 +48,8 @@ class ExpressController {
                 notiEmail:email,
                 notification:true,
                 times:1,
-                createDate: new Date()
+                createDate: new Date(),
+                key: UUID.randomUUID().toString()
         )
         if (quartz.validate()){
             quartz.save(flush: true,failOnError: true)
@@ -61,7 +62,10 @@ class ExpressController {
 
     def unnoti = {
         def id = params.id
-        ExpressQuartz quartz = ExpressQuartz.get(id)
+        ExpressQuartz quartz = ExpressQuartz.findByIdAndKey(Long.valueOf(id),params.key)
+        if (!quartz){
+            render "不存在的提醒！"
+        }
         quartz.notification = false
         if (quartz.save(flush: true)){
             render "快递号:"+quartz.expressNo+"不会再收到动态提醒！/(ㄒoㄒ)/~~"
