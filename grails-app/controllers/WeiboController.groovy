@@ -240,7 +240,7 @@ class WeiboController {
      * @param trees
      * @return
      */
-    def getFansData(def endName, int deep, List<WeiboTree> trees, WeiboTree parentNode) {
+    def getFansData(def endName, int deep,def trees, WeiboTree parentNode) {
         try {
             deep++
             //获取startName
@@ -343,7 +343,7 @@ class WeiboController {
         }
     }
 
-    def contains(List<WeiboTree> trees, String name) {
+    def contains(def trees, String name) {
         WeiboTree nearTree = null
         for (WeiboTree tree : trees) {
             if (tree.nickName == name) {
