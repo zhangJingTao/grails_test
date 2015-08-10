@@ -12,29 +12,151 @@
     <script src="/main/js/bootstrap.min.js"></script>
     <!-- Bootstrap Core CSS -->
     <link href="/main/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <script type="text/javascript">
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    type: 'spline'
+                },
+                title: {
+                    text: '当前贴吧爬虫抓取效率'
+                },
+                subtitle: {
+                    text: '以小时为单位'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'items'
+                    },
+                    min: 0,
+                    minorGridLineWidth: 0,
+                    gridLineWidth: 0,
+                    alternateGridColor: null,
+                    plotBands: [{ // Light air
+                        from: 0*60,
+                        to: 1*60,
+                        color: 'rgba(68, 170, 213, 0.1)',
+                        label: {
+                            text: 'Sleeping',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, { // Light breeze
+                        from: 1*60,
+                        to: 20*60,
+                        color: 'rgba(0, 0, 0, 0)',
+                        label: {
+                            text: 'Thread Too Many',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, { // Gentle breeze
+                        from: 20*60,
+                        to: 80*60,
+                        color: 'rgba(68, 170, 213, 0.1)',
+                        label: {
+                            text: 'Insufficient Memory',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, { // Moderate breeze
+                        from: 80*60,
+                        to: 200*60,
+                        color: 'rgba(0, 0, 0, 0)',
+                        label: {
+                            text: 'Single Thread',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, { // Fresh breeze
+                        from: 200*60,
+                        to: 400*60,
+                        color: 'rgba(68, 170, 213, 0.1)',
+                        label: {
+                            text: 'Need GC',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, { // Strong breeze
+                        from: 400*60,
+                        to: 800*60,
+                        color: 'rgba(0, 0, 0, 0)',
+                        label: {
+                            text: 'Well',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }, { // High wind
+                        from: 800*60,
+                        to: 1000*60,
+                        color: 'rgba(68, 170, 213, 0.1)',
+                        label: {
+                            text: 'Good Enoung',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    },{ // High wind
+                        from: 1000*60,
+                        to: 3000*60,
+                        color: 'rgba(0, 0, 0, 0)',
+                        label: {
+                            text: 'Excellent',
+                            style: {
+                                color: '#606060'
+                            }
+                        }
+                    }]
+                },
+                tooltip: {
+                    valueSuffix: ' pieces/hour'
+                },
+                plotOptions: {
+                    spline: {
+                        lineWidth: 4,
+                        states: {
+                            hover: {
+                                lineWidth: 5
+                            }
+                        },
+                        marker: {
+                            enabled: false
+                        },
+                        pointInterval: 3600000, // one Hour
+                        pointStart: Date.UTC(2015,7,10, 0, 0, 0)
+                    }
+                },
+                series: [{
+                    name: 'Total',
+                    data: ${total}
 
+                }, {
+                    name: 'Valid',
+                    data: ${valid}
+                }],
+                navigation: {
+                    menuItemStyle: {
+                        fontSize: '10px'
+                    }
+                }
+            });
+        });
+    </script>
+</head>
 <body>
-<form action="/tieba/getIt" method="post">
-    <div class="container">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">起始ID</span>
-                <input type="text" class="form-control" placeholder="起始ID" name="start"
-                       aria-describedby="basic-addon1">
-            </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">终止ID</span>
-                <input type="text" class="form-control" placeholder="终止ID" name="end"
-                       aria-describedby="basic-addon1">
-            </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2">
-            <input type="submit" class="btn btn-primary" value="提交任务"/>
-        </div>
-    </div>
-</form>
+<script src="/js/highcharts/highcharts.js"></script>
+<div id="container" style="width: 100%; height: 500px; margin: 0 auto"></div>
 </body>
 </html>

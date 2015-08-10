@@ -1,10 +1,24 @@
+import groovy.sql.Sql
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
 class TiebaController {
+    def dataSource
 
     def index = {
-
+        def db = new Sql(dataSource)
+        def date = new Date().format("yyyy-MM-dd 00:00:00")
+        List<Integer> totals = new ArrayList<Integer>()
+        List<Integer> valids = new ArrayList<Integer>()
+        db.eachRow("""SELECT count(id) as num,DATE_FORMAT(date_created,'%y-%m-%d %H') FROM tieba_card WHERE date_created >'${date}' GROUP BY DATE_FORMAT(date_created,'%y-%m-%d %H') ORDER BY DATE_FORMAT(date_created,'%y-%m-%d %H')"""){
+            rs->
+                totals.add(rs.num as Integer)
+        }
+        db.eachRow("""SELECT count(id) as num,DATE_FORMAT(date_created,'%y-%m-%d %H') FROM tieba_card WHERE title is not null and date_created >'${date}' GROUP BY DATE_FORMAT(date_created,'%y-%m-%d %H') ORDER BY DATE_FORMAT(date_created,'%y-%m-%d %H')"""){
+            rs->
+                valids.add(rs.num as Integer)
+        }
+        [total:totals,valid:valids]
     }
 
     def getIt = {
