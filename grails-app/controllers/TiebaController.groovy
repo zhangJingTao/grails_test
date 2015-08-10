@@ -50,7 +50,7 @@ class TiebaController {
                         dateCreated: new Date(),
                         source: source
                 )
-                card.save(flush: true,failOnError: true)
+                card.save(flush: true)
             } catch (Exception e) {
                 log.error("${url}帖子可能不存在...")
                 TiebaCard card = new TiebaCard(
@@ -63,7 +63,7 @@ class TiebaController {
                         dateCreated: new Date(),
                         curNum: i
                 )
-                card.save(flush: true,failOnError: true)
+                card.save(flush: true)
                 continue
             }
         }

@@ -5,11 +5,11 @@ import com.alibaba.fastjson.JSONObject
  */
 class TiebaJob {
     static  triggers = {
-        cron(name: 'tiebaJob',cronExpression: '0 0/1 * * * ?')
+        cron(name: 'tiebaJob',cronExpression: '0 0/30 * * * ?')
     }
     def execute(){
         List<TiebaCardSchedule> jobs = TiebaCardSchedule.findAllByExeDateIsNull()
-        for (int i=0;i<5;i++){
+        for (int i=0;i<2;i++){
             if (jobs.size()-1>=i){
                 def tiebaSchedule = jobs.get(i)
                 tiebaSchedule.exeDate = new Date()
@@ -18,7 +18,7 @@ class TiebaJob {
                 log.info cmd
                 cmd.execute()
             }else{
-                log.error("计划不足五个 立即补充...")
+                log.error("计划不足两个 立即补充...")
             }
         }
     }
