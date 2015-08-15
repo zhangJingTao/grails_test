@@ -135,7 +135,7 @@
                             enabled: false
                         },
                         pointInterval: 3600000, // one Hour
-                        pointStart: Date.UTC(2015,7,10, 0, 0, 0)
+                        pointStart: Date.UTC(2015,new Date().getMonth(),new Date().getDate(), 0, 0, 0)
                     }
                 },
                 series: [{
