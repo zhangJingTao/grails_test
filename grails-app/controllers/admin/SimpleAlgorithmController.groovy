@@ -5,6 +5,4 @@ class SimpleAlgorithmController {
     def index() {
 
     }
-
-    def
 }

@@ -31,7 +31,7 @@ class BootStrap {
                 .save(flush: true, failOnError: true)
 
         //增加一个 permission 限制 controller - Home 下 action -admin ID为2 的权限
-        def per1 = new Permission(permission:"home:admin:2").save(flush: true, failOnError: true)
+        def per1 = new Permission(permission:"home:admin:2",name: "测试").save(flush: true, failOnError: true)
         adminRole.addToPermissions("home:admin:2").save(flush: true, failOnError: true)
 
     }
