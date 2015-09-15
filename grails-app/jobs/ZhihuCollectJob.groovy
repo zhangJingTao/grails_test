@@ -53,7 +53,7 @@ class ZhihuCollectJob {
                                     vote: vote,
                                     author: author,
                                     authorDesc: authorDesc,
-                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url="),
+                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("//pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("pic[0-9].zhimg.com","/zhihu/pic?url="),
                                     createdDate: createdDate,
                                     viewTime: viewTime,
                                     commentTimes: commentTimes,
