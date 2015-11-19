@@ -63,7 +63,7 @@
                 var jiathis_config={
                     url:window.location.href,
                     summary:author+"的回答",
-                    title:encodeURI(${content.title}),
+                    title:encodeURI('${content.title}'),
                     shortUrl:false,
                     hideMore:false
                 }

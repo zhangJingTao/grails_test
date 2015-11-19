@@ -1,6 +1,9 @@
+import grails.validation.Validateable
+
 /**
  * 将微博中的粉丝关系组成树结构
  */
+@Validateable
 class WeiboTree {
     /**
      * 关系信息

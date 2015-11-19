@@ -7,7 +7,7 @@ import org.jsoup.select.Elements
  */
 class ZhihuCollectJob {
     static triggers = {
-        cron(name: 'zhihuCollect',cronExpression: '0 0 7/11 * * ?')
+        cron(name: 'zhihuCollect',cronExpression: '0 40 11 * * ?')
 //        cron(name: 'zhihuCollect',cronExpression: '0 0/1 * * * ?')
     }
 
@@ -28,32 +28,35 @@ class ZhihuCollectJob {
                         .get();
                 Elements eles = document.allElements
                 eles = eles.select("#zh-list-answer-wrap").select(".zm-item")
+                def titleContent = ""
                 eles.each {
                     ele ->
                         try {
-                            def titleContent = ele.select(".zm-item-title")?.get(0)
+                            if (ele.select(".zm-item-title").size()>0){
+                                titleContent = ele.select(".zm-item-title").get(0)
+                            }
                             def voteContent = ele.select(".zm-item-fav").select(".zm-item-vote")
-                            def authorContent = ele.select(".zm-item-fav").select(".answer-head").select(".zm-item-answer-author-info").select(".zm-item-answer-author-wrap").get(0)
+                            def authorContent = ele.select(".zm-item-fav").select(".answer-head").select(".zm-item-answer-author-info").get(0)
                             def commentContent = ele.select(".zm-item-fav").select(".zm-item-meta").select(".zm-meta-panel").select(".toggle-comment").get(0)
 
                             def title = titleContent==null? lastTitle:titleContent.select("a").text()
                             lastTitle = title
                             def questionUrl = zhihu + titleContent.select("a").attr("href")
-                            def vote = Integer.valueOf(voteContent.select("a").text())
+                            def vote = Integer.valueOf(voteContent.select("a").text().replace("K","000"))
                             def author = authorContent.select("a").text()
-                            def authorDesc = authorContent.select("strong").text()
+                            def authorDesc = authorContent.select(".bio").text()
                             def content = ele.select(".zm-item-fav").select(".zm-item-rich-text").select(".content").get(0).text()
                             def createdDate = new Date()
                             def zhihuId = ele.select(".zm-item-fav").select(".zm-item-rich-text").get(0).attr("data-resourceid")
                             Integer viewTime = 0
-                            Integer commentTimes = Integer.parseInt(commentContent.text().replace(" 条评论", ""))
+                            Integer commentTimes = Integer.parseInt(commentContent.text().replace("添加评论","0").replace(" 条评论", ""))
                             ZhihuCollectContent zcc = new ZhihuCollectContent(
                                     title: title,
                                     questionUrl: questionUrl,
                                     vote: vote,
                                     author: author,
                                     authorDesc: authorDesc,
-                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("//pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("pic[0-9].zhimg.com","/zhihu/pic?url="),
+                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("https://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("//pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("pic[0-9].zhimg.com","/zhihu/pic?url="),
                                     createdDate: createdDate,
                                     viewTime: viewTime,
                                     commentTimes: commentTimes,
@@ -67,6 +70,7 @@ class ZhihuCollectJob {
                                 log.info zcc.title + "已存在"
                             }
                         } catch (Exception e) {
+                            e.printStackTrace()
                             log.info "抓取失败"
                         }
                 }
