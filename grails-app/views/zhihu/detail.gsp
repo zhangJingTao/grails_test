@@ -16,12 +16,13 @@
     <!-- responsive -->
     <script src="/js/responsive/responsive-nav.min.js"></script>
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
+    <script src="/js/zhihu/scroll.js"></script>
     <style type="text/css">
     /* Pill style */
     #scrollUp {
         bottom: 20px;
         right: 20px;
-        background: #555;
+        background: #0968c7;
         color: #fff;
         font-size: 12px;
         font-family: sans-serif;
@@ -37,50 +38,11 @@
     }
 
     #scrollUp:hover {
-        background: #000;
+        background: #0965c2;
     }
     </style>
 
     <script type="text/javascript">
-        (function ($) {
-            $.scrollUp = function (options) {
-                var settings = {
-                    scrollName: "scrollUp",
-                    topDistance: "300",
-                    topSpeed: 300,
-                    animation: "fade",
-                    animationInSpeed: 200,
-                    animationOutSpeed: 200,
-                    scrollText: "回到顶部",
-                    activeOverlay: false
-                };
-                if (options)var settings = $.extend(settings, options);
-                var sn = "#" + settings.scrollName, an = settings.animation, os = settings.animationOutSpeed, is = settings.animationInSpeed, td = settings.topDistance, st = settings.scrollText, ts = settings.topSpeed, ao = settings.activeOverlay;
-                $("<a/>", {
-                    id: settings.scrollName,
-                    href: "#top", title: st, text: st
-                }).appendTo("body");
-                $(sn).css({"display": "none", "position": "fixed", "z-index": "2147483647"});
-                if (ao) {
-                    $("body").append("<div id='" + settings.scrollName + "-active'></div>");
-                    $(sn + "-active").css({
-                        "position": "absolute",
-                        "top": td + "px",
-                        "width": "100%",
-                        "border-top": "1px dotted " + ao,
-                        "z-index": "2147483647"
-                    })
-                }
-                $(window).scroll(function () {
-                    if (an === "fade")$($(window).scrollTop() > td ? $(sn).fadeIn(is) : $(sn).fadeOut(os)); else if (an === "slide")$($(window).scrollTop() > td ? $(sn).slideDown(is) : $(sn).slideUp(os));
-                    else $($(window).scrollTop() > td ? $(sn).show(0) : $(sn).hide(0))
-                });
-                $(sn).click(function (event) {
-                    $("html, body").animate({scrollTop: 0}, ts);
-                    return false
-                })
-            }
-        })(jQuery);
         $(document).ready(function () {
             var navigation = responsiveNav("#nav", {customToggle: "#nav-toggle"});
             $.scrollUp();
@@ -118,10 +80,6 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-8 col-md-offset-2">
-        <a type="button" href="/zhihu?baseId=${content.id}" class="btn btn-warning" style="width: 100%">返回列表</a>
-    </div>
     <div class="col-md-8 col-md-offset-2" id="content">
         <div class="panel panel-success"><div class="panel-body">${content.title}</div>
             <div class="panel-footer">${content.content}</div>
@@ -130,7 +88,7 @@
         </div>
     </div>
     <div class="col-md-8 col-md-offset-2" title="‘→’也可以翻页(●'◡'●)’">
-        <a type="button" href="/zhihu/next?id=${content.id}" class="btn btn-info" style="width: 100%">下一篇</a>
+        <a type="button" href="/zhihu/next?id=${content.id}" class="btn btn-block" style="width: 100%;color: white;font-weight: bold;">下一篇</a>
     </div>
 
 </div>
