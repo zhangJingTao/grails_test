@@ -25,7 +25,7 @@ grails.project.dependency.resolution = {
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
-//        mavenRepo "http://192.168.1.15:8080/nexus/content/groups/public/"
+        mavenRepo "http://nexus.onlysleep.net/content/groups/public/"
         mavenRepo "http://repo.grails.org/grails/core"
         mavenRepo "http://repo.grails.org/grails/plugins"
         mavenLocal()
@@ -60,6 +60,7 @@ grails.project.dependency.resolution = {
         compile ':cache:1.0.1'
         compile ':quartz:1.0.2'
         compile ":mail:1.0.1"
+//        compile ":grails-melody:1.57.0"
 //        compile ":freemarker:1.0-SNAPSHOT"
 //        compile ":freemarker-tags:0.7.2"
     }

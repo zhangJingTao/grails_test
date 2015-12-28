@@ -7,7 +7,7 @@ import org.jsoup.select.Elements
  */
 class ZhihuCollectJob {
     static triggers = {
-        cron(name: 'zhihuCollect',cronExpression: '0 40 11 * * ?')
+        cron(name: 'zhihuCollect',cronExpression: '0 0/30 * * * ?')
 //        cron(name: 'zhihuCollect',cronExpression: '0 0/1 * * * ?')
     }
 

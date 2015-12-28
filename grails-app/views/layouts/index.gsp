@@ -57,6 +57,7 @@
         <li><a href="http://blog.onlysleep.net">Blog</a></li>
         <li><a href="/zhihu">Collect</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="http://nexus.onlysleep.net">Nexus</a></li>
     </ul>
 </div>
 
@@ -76,6 +77,7 @@
                             <li><a href="http://blog.onlysleep.net">Blog</a></li>
                             <li><a href="/zhihu">Collect</a></li>
                             <li><a href="#contact">Contact</a></li>
+                            <li><a href="http://nexus.onlysleep.net">Nexus</a></li>
                         </ul>
                     </nav>
                 </div>
