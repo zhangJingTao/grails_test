@@ -1,0 +1,4 @@
+class GController {
+
+    def index() {}
+}

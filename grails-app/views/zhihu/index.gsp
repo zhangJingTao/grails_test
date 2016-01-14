@@ -9,6 +9,7 @@
     <meta name="author" content="">
     <!-- jQuery -->
     <script src="/main/js/jquery.js"></script>
+    <script src="/main/js/bootstrap.min.js"></script>
     <link href="/css/nav.css" rel="stylesheet">
     <!-- Bootstrap Core CSS -->
     <link href="/main/css/bootstrap.min.css" rel="stylesheet">
@@ -50,10 +51,11 @@
             var navigation = responsiveNav("#nav", {customToggle: "#nav-toggle"});
             getNext();
             $.scrollUp();
+            $('[data-toggle="tooltip"]').tooltip()
         })
 
         function getNext() {
-            var template = '<a href="/zhihu/detail/{id}" class="list-group-item"><h4 class="list-group-item-heading">{title}</h4><p class="list-group-item-text">{author}{authordesc}</p></a>'
+            var template = '<a href="/zhihu/detail/{id}" class="list-group-item" data-toggle="tooltip" data-placement="right" title="{commentTimes}"><h4 class="list-group-item-heading">{title}</h4></a>'
             if (!pending) {
                 pending = true
                 var url = "/zhihu/giveMeFive?max=10&minId=" + baseId + "&_=" + new Date().getTime()
@@ -66,12 +68,12 @@
                             if (author.length == 0) author = '匿名用户'
                             html += template.replace("{title}", ele.title)
                                     .replace("{content}", ele.content)
-                                    .replace("{author}", author)
                                     .replace("{id}", ele.id)
-                                    .replace("{authordesc}", ele.authorDesc == null ? "" : ele.authorDesc)
+                                    .replace("{commentTimes}", ele.commentTimes)
                         })
                         baseId = data.nexBaseId
                         $("#content").append(html)
+                        $('[data-toggle="tooltip"]').tooltip()
                     }
                     pending = false
                     $("#moreBtn").show()
