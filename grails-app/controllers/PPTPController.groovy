@@ -1,0 +1,3 @@
+class PPTPController {
+    def index() { }
+}

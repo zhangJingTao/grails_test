@@ -55,8 +55,12 @@ class ZhihuController {
         def id = params.getLong("id")
         if (id){
             def content = ZhihuCollectContent.get(id)
-            content.viewTime++//记录阅读次数
-            content.save(flush: true)
+            try {
+                content.viewTime++//记录阅读次数
+                content.save(flush: true)
+            }catch (Exception ex){
+                ex.printStackTrace()
+            }
             [content:content]
         }else {
             redirect(action: "index")
