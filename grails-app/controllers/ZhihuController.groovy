@@ -6,34 +6,34 @@ class ZhihuController {
     def dataSource
 
     def index() {
-        [baseId:params.baseId? params.baseId:999999]
+        [baseId: params.baseId ? params.baseId : 999999]
     }
 
-    def giveMeFive(){
-        def minId = params.minId? params.getLong("minId"):Integer.MAX_VALUE
+    def giveMeFive() {
+        def minId = params.minId ? params.getLong("minId") : Integer.MAX_VALUE
         params.max = params.max ? params.int('max') : 5
         params.offset = 0
         def query = {
-            le("id",minId)
-            order("id","desc")
+            le("id", minId)
+            order("id", "desc")
 //            eq("enabled",true)
         }
-        def list = ZhihuCollectContent.createCriteria().list(params,query)
+        def list = ZhihuCollectContent.createCriteria().list(params, query)
         JSONObject json = new JSONObject()
-        json.put("status","1")
-        if (list.size()!=0){
-            json.put("nexBaseId",(list.get(list.size()-1) as  ZhihuCollectContent).id-1)
-        }else{
-            json.put("nexBaseId",0)
+        json.put("status", "1")
+        if (list.size() != 0) {
+            json.put("nexBaseId", (list.get(list.size() - 1) as ZhihuCollectContent).id - 1)
+        } else {
+            json.put("nexBaseId", 0)
         }
-        json.put("list",list)
+        json.put("list", list)
         render json as JSON
     }
 
     def del = {
         def id = params.id
         def zhihu = ZhihuCollectContent.get(id)
-        if (zhihu){
+        if (zhihu) {
             zhihu.enabled = false
             zhihu.save(flush: true)
         }
@@ -45,7 +45,7 @@ class ZhihuController {
     def pic = {
         def url = params.url
         def out = response.outputStream
-        out << new URL("http://pic4.zhimg.com/"+url).openStream()
+        out << new URL("http://pic4.zhimg.com/" + url).openStream()
     }
     /*
      *
@@ -53,30 +53,30 @@ class ZhihuController {
      */
     def detail = {
         def id = params.getLong("id")
-        if (id){
-            def content = ZhihuCollectContent.get(id)
+        if (id) {
+            ZhihuCollectContent content = ZhihuCollectContent.get(id)
             try {
-                content.viewTime++//记录阅读次数
-                content.save(flush: true)
-            }catch (Exception ex){
+                content.viewTime = content.viewTime + 1//记录阅读次数
+                content.save(flush: true, failOnError: true)
+            } catch (Exception ex) {
                 ex.printStackTrace()
             }
-            [content:content]
-        }else {
+            [content: content]
+        } else {
             redirect(action: "index")
         }
     }
     /**
      * 降序查看下一篇文章
      */
-    def next(){
+    def next() {
         def id = params.id
-        if (id){
+        if (id) {
             def db = new Sql(dataSource)
-            def sql = "select max(id) as id from zhihu_collect_content z where z.id<"+id
+            def sql = "select max(id) as id from zhihu_collect_content z where z.id<" + id
             def result = db.firstRow(sql)
             log.info result.id
-            redirect(action: "detail",params: ["id":result.id as Long])
+            redirect(action: "detail", params: ["id": result.id as Long])
         }
     }
 }
