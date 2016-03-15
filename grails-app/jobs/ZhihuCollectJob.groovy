@@ -50,18 +50,23 @@ class ZhihuCollectJob {
                             def zhihuId = ele.select(".zm-item-fav").select(".zm-item-rich-text").get(0).attr("data-resourceid")
                             Integer viewTime = 0
                             Integer commentTimes = Integer.parseInt(commentContent.text().replace("添加评论","0").replace(" 条评论", ""))
+                            ZhihuCollectContentExt ext = new ZhihuCollectContentExt(
+                                    sort: 1,
+                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("https://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("//pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("pic[0-9].zhimg.com","/zhihu/pic?url=")
+                            )
+                            ext.save(flush: true)
                             ZhihuCollectContent zcc = new ZhihuCollectContent(
                                     title: title,
                                     questionUrl: questionUrl,
                                     vote: vote,
                                     author: author,
                                     authorDesc: authorDesc,
-                                    content: content.replaceAll("http://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("https://pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("//pic[0-9].zhimg.com","/zhihu/pic?url=").replaceAll("pic[0-9].zhimg.com","/zhihu/pic?url="),
                                     createdDate: createdDate,
                                     viewTime: viewTime,
                                     commentTimes: commentTimes,
                                     zhihuId: zhihuId,
-                                    enabled: true
+                                    enabled: true,
+                                    ext: ext
                             )
                             zcc.collect = c
 

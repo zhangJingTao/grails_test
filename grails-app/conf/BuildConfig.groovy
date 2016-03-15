@@ -40,13 +40,13 @@ grails.project.dependency.resolution = {
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
-
         runtime 'mysql:mysql-connector-java:5.1.22'
         compile 'org.apache.httpcomponents:httpclient:4.0.3'
         compile 'org.jsoup:jsoup:1.8.2'
         compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.5.2'
         compile 'net.sf.ezmorph:ezmorph:1.0.6'
         compile 'org.freemarker:freemarker:2.3.16'
+        compile 'redis.clients:jedis:2.8.0'
 //        compile 'net.sf.json-lib:json-lib:2.4'
 //        compile 'xml-resolver:xml-resolver:1.2'
     }
@@ -56,8 +56,8 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.8.3"
         runtime ":resources:1.2"
         build ":tomcat:$grailsVersion"
-        runtime ":database-migration:1.3.2"
-        compile ':cache:1.0.1'
+//        runtime ":database-migration:1.3.2"
+//        compile ':cache:1.0.1'
         compile ':quartz:1.0.2'
         compile ":mail:1.0.1"
 //        compile ":grails-melody:1.57.0"

@@ -17,6 +17,7 @@
     <script src="/js/responsive/responsive-nav.min.js"></script>
     <link href="/css/responsive/responsive-nav.css" rel="stylesheet">
     <script src="/js/zhihu/scroll.js"></script>
+    <script src="/js/zhihu/jquery.lazyload.min.js"></script>
     <style type="text/css">
     /* Pill style */
     #scrollUp {
@@ -47,6 +48,9 @@
                     var navigation = responsiveNav("#nav", {customToggle: "#nav-toggle"});
                     $.scrollUp();
                     document.onkeyup = keyUp;
+                    $("img").lazyload({
+                        effect : "fadeIn"
+                    });
                 }
         )
         function keyUp(e) {
@@ -146,13 +150,13 @@
             <div class="col-lg-5"></div>
 
             <div class="col-md-2">
-                <img border="0" src="http://cc.amazingcounters.com/counter.php?i=3189687&c=9569374"
-                     alt="AmazingCounters.com"/>
+                %{--<img border="0" src="https://cc.amazingcounters.com/counter.php?i=3189687&c=9569374"
+                     alt="AmazingCounters.com"/>--}%
             </div>
         </div> <!-- .row -->
     </div> <!-- .container -->
 </footer> <!-- .site-footer -->
-<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript'
+<div style="display:none"><script src='https://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript'
                                   charset='gb2312'></script></div>
 </body>
 </html>

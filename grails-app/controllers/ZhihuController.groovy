@@ -16,7 +16,6 @@ class ZhihuController {
         def query = {
             le("id", minId)
             order("id", "desc")
-//            eq("enabled",true)
         }
         def list = ZhihuCollectContent.createCriteria().list(params, query)
         JSONObject json = new JSONObject()

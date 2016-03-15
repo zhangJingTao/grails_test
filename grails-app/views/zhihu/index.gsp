@@ -78,11 +78,6 @@
                     pending = false
                     $("#moreBtn").show()
                     count++
-//                    if(count >3){
-//                        for(var i = 0;i<10;i++){
-//                            $($(".list-group-item")[0]).remove()
-//                        }
-//                    }
                 })
             }
         }
